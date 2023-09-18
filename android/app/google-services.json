@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "935517971692",
+    "project_id": "zezo-store-32084",
+    "storage_bucket": "zezo-store-32084.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935517971692:android:9ed67e5de4b2b53220f1c9",
+        "android_client_info": {
+          "package_name": "com.zezostore.zezo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935517971692-b9hgtpt30pijgtj6dt51q998ka2si4g0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zezostore.zezo",
+            "certificate_hash": "56da3741f9dd93eaaa470eab4fd5b5e8cfd62c78"
+          }
+        },
+        {
+          "client_id": "935517971692-tolf28l4c8te1k0f4l1safnns2upmrcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxzwebvAijsF8HCq-QE_pIRZlbPa1RjMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935517971692-elibdnup6jmq3l8i8dqtj5km7f3cuacm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "935517971692-2mq53maht8gineomhbo76p1kp5rr7u0j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zezostore.zezo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
