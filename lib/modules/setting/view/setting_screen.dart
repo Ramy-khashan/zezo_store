@@ -109,6 +109,13 @@ class SettingsSCreen extends StatelessWidget {
                     Navigator.pushNamed(context, RouteKeys.wishListScreen);
                   },
                   title: 'Wishlist',
+                ),             ListTileWidget(
+                  icon: Icons.report,
+                  color: AppColors.whiteColor,
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteKeys.reportsScreen);
+                  },
+                  title: 'Report',
                 ),
                 // ListTileWidget(
                 //   icon: IconlyLight.show,

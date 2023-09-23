@@ -88,11 +88,12 @@ class LoginRepositoryImpl extends LoginRepository {
 
   @override
   Future<Either<String, String>> signInWithGoogle(context) async {
-    try {
+     try {
       GoogleSignIn signInGoogle = GoogleSignIn(
           clientId:  "935517971692-tolf28l4c8te1k0f4l1safnns2upmrcl.apps.googleusercontent.com",
           scopes: ["email", "profile"]);
       signInGoogle.signOut();
+      
       GoogleSignInAccount? googleSignInAccount = await signInGoogle.signIn();
       GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount!.authentication;

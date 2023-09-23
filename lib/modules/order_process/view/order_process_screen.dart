@@ -1,7 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:store/core/widgets/loading_item.dart';
+import '../../../core/widgets/loading_item.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/auth_button.dart';
 import '../../cart_screen/model/cart_model.dart';
@@ -58,8 +58,8 @@ class OrderProcessScreen extends StatelessWidget {
                                         .fields!
                                         .productImage!
                                         .stringValue!,
-                                    height: size.longestSide * .1,
-                                    width: size.shortestSide * .17,
+                                    height: 60,
+                                    width: 80,
                                   ),
                                 ),
                                 title: Text(
@@ -69,14 +69,14 @@ class OrderProcessScreen extends StatelessWidget {
                                       .stringValue!,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: size.shortestSide * .05,
+                                      fontSize: 20,
                                       color: AppColors.whiteColor,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 subtitle: Text(
                                   "Quantity : ${cartProduct[index].fields!.quantity!.integerValue!}",
                                   style: TextStyle(
-                                      fontSize: size.shortestSide * .043,
+                                      fontSize: 17,
                                       color: AppColors.whiteColor,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -84,7 +84,7 @@ class OrderProcessScreen extends StatelessWidget {
                                   "${cartProduct[index].fields!.price!.stringValue} LE.",
                                   style: TextStyle(
                                       color: AppColors.whiteColor,
-                                      fontSize: size.shortestSide * .045,
+                                      fontSize:19,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
@@ -128,7 +128,7 @@ class OrderProcessScreen extends StatelessWidget {
                                   child: Text(
                                 "Payment only cash at the current moment.",
                                 style: TextStyle(
-                                    fontSize: getFont(22),
+                                    fontSize:19,
                                     fontWeight: FontWeight.w600),
                               )),
                             ),

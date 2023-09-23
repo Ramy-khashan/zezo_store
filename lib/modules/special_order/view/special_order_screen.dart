@@ -40,8 +40,8 @@ class SpecialOrderScreen extends StatelessWidget {
                   dialogType: DialogType.info,
                   body: Padding(
                     padding: EdgeInsets.all(getWidth(12)),
-                    child: Text(
-                        "Write down your order and we will contact you as soon as possible.",
+                    child: SelectableText(
+                        "Write down any custom order and we will contact you as soon as possible.",
                         style: TextStyle(
                             fontSize: getFont(22),
                             fontStyle: FontStyle.italic,

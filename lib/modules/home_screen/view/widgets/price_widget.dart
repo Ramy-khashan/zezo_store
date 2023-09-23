@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/text_widget.dart';
-import '../../../../core/utils/size_config.dart';
-
+ 
 class PriceWidget extends StatelessWidget {
   final String salePrice, price;
   final bool isOnSale;
@@ -21,11 +20,10 @@ class PriceWidget extends StatelessWidget {
     return Row(
       children: [
         TextWidget(
-          text: '$userPrice ',
+          text: '$userPrice ${isOnSale ? "" : "LE"}',
           color: Colors.green.shade300,
-          textSize: getFont(isSmall ? 16 : 22),
+          textSize: 20,
         ),
-        
         Visibility(
           visible: isOnSale ? true : false,
           child: Text(
@@ -35,7 +33,7 @@ class PriceWidget extends StatelessWidget {
               decoration: TextDecoration.lineThrough,
               decorationColor: Colors.red.shade300,
               decorationThickness: 3,
-              fontSize: getFont(isSmall ? 15 : 20),
+              fontSize: 15,
             ),
           ),
         ),

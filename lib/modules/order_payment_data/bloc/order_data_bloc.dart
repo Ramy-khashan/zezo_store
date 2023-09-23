@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
- 
+
 import 'dart:math';
 import '../../../config/app_controller/appcontrorller_cubit.dart';
 import '../../../core/api/dio_consumer.dart';
@@ -27,20 +27,20 @@ class OrderPaymentDataBloc
     extends Bloc<OrderPaymentDataEvent, OrderPaymentDataState> {
   final OrderDataRepoImpl orderDataRepoImpl;
   static OrderPaymentDataBloc get(context) => BlocProvider.of(context);
-
-  final fristNameController = TextEditingController(text: "lol");
-  final lastNameController = TextEditingController(text: "lol");
-  final emailController = TextEditingController(text: "lol@gmail.com");
-  final phoneController = TextEditingController(text: "01011739999");
-  final addressController = TextEditingController(text: "home");
-  final priceController = TextEditingController(text: "1500");
+  final formKey = GlobalKey<FormState>();
+  final fristNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  final priceController = TextEditingController();
 
   final apartmentController = TextEditingController();
   final floorController = TextEditingController();
-  final postalCodeController = TextEditingController();
+  final postalCodeController = TextEditingController(text: "");
   final buildingtController = TextEditingController();
-  final cityController = TextEditingController();
-  final stateController = TextEditingController();
+  final cityController = TextEditingController(text: "");
+  final stateController = TextEditingController(text: "");
 
   getPaymentToken(
       {required String authToken,
@@ -173,7 +173,7 @@ class OrderPaymentDataBloc
                 "${EndPoints.firestoreBaseUrl}/${FirestoreKeys.cart}/$userId/${FirestoreKeys.cartProducts}/${element["name"].split("/").last}");
           }
         });
-        AppcontrorllerCubit.get(context).getCartLenth( );
+        AppcontrorllerCubit.get(context).getCartLenth();
       });
       isLoading = false;
       emit(SucessCreateState());
@@ -186,7 +186,7 @@ class OrderPaymentDataBloc
           (route) => false);
     } catch (e) {
       isLoading = false;
-       emit(FailedCreateState(
+      emit(FailedCreateState(
           error: camilCaseMethod("Failed to create your order")));
     }
   }

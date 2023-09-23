@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -135,6 +136,26 @@ class OrderItem extends StatelessWidget {
                   textSize: getFont(21),
                   isBold: true,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection("configration")
+                        .doc("sendOrderMsg")
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          "Hint :${snapshot.data!.get("msg")}",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade400,
+                              fontWeight: FontWeight.bold),
+                        );
+                      }
+                      return SizedBox();
+                    })
               ],
             ),
           ),

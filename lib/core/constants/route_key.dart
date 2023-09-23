@@ -13,4 +13,5 @@ class RouteKeys {
   static const String onSaleScreen = '/onSaleScreen';
   static const String categoryProductScreen = '/categoryProduct';
   static const String resetPasswordScreen = '/resetPasswordScreen';
+  static const String reportsScreen = '/reportsScreen';
 }

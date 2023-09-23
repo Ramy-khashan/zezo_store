@@ -11,6 +11,7 @@ import '../../../modules/order_screen/view/order_screen.dart';
 import '../../../modules/product_details_screen/view/product_details_screen.dart';
 import '../../../modules/register/controller/register_cubit.dart';
 import '../../../modules/register/view/register.dart';
+import '../../../modules/reports/view/reports_screen.dart';
 import '../../../modules/reset_password/view/reset_password_screen.dart';
 import '../../../modules/special_order_request/view/special_order_requests.dart';
 import '../../../modules/splash_screen/view/splash_screen.dart';
@@ -41,6 +42,9 @@ class AppRoute {
       case RouteKeys.homeScreen:
         return MaterialPageRoute(
           builder: (context) => const BottomNavigationScreen(),
+        );case RouteKeys.reportsScreen:
+        return MaterialPageRoute(
+          builder: (context) => const ReportsScreen(),
         );
       case RouteKeys.specailOrder:
         return MaterialPageRoute(

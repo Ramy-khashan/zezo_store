@@ -104,7 +104,7 @@ class WishListScreen extends StatelessWidget {
                                                             .id);
                                                   },
                                                   child: Icon(IconlyBold.delete,
-                                                      size: getWidth(30),
+                                                      size:  30 ,
                                                       color: Colors.red),
                                                 ))
                                           ],

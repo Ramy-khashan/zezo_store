@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'; 
-import '../../../config/app_controller/appcontrorller_cubit.dart'; 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../../../config/app_controller/appcontrorller_cubit.dart';
 import '../../../core/constants/storage_keys.dart';
- import '../../../shop_app.dart'; 
- 
+import '../../../shop_app.dart';
+
 part 'home_page_state.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {

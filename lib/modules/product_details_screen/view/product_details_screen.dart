@@ -3,15 +3,16 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import '../../../core/widgets/loading_item.dart';
-import '../../../core/widgets/text_widget.dart';
-import '../../home_screen/view/widgets/price_widget.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/functions/add_to_favorite.dart';
 import '../../../core/utils/functions/camil_case.dart';
-import '../../../core/widgets/back_icon.dart';
 import '../../../core/utils/size_config.dart';
+import '../../../core/widgets/back_icon.dart';
 import '../../../core/widgets/icon_button_item.dart';
+import '../../../core/widgets/loading_item.dart';
+import '../../../core/widgets/text_widget.dart';
+import '../../home_screen/view/widgets/price_widget.dart';
 import '../controller/product_details_cubit.dart';
 import 'widgets/swip_button.dart';
 

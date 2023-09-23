@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/app_colors.dart';
@@ -42,13 +42,15 @@ class SpecialOrderRequests extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return snapshot.data!.docs.isEmpty
-                        ? Text(
-                            camilCaseMethod("There is no orders for you"),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: getFont(25),
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade200),
+                        ? Center(
+                            child: Text(
+                              camilCaseMethod("There is no orders for you"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: getFont(25),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey.shade200),
+                            ),
                           )
                         : ListView.separated(
                             itemBuilder: (context, index) => Card(
@@ -140,7 +142,8 @@ class SpecialOrderRequests extends StatelessWidget {
                                 ),
                             itemCount: snapshot.data!.docs.length);
                   } else if (snapshot.hasError) {
-                    return Text("data");
+                    return const Center(
+                        child: Text("Something went wrong, Try again later"));
                   }
 
                   return const LoadingItem();
