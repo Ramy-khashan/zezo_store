@@ -5,7 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/route_key.dart';
-  import '../../../../core/widgets/text_widget.dart';
+import '../../../../core/widgets/text_widget.dart';
 import 'price_widget.dart'; 
 class ProductViewItem extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>>  product;

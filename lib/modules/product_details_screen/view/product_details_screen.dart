@@ -6,7 +6,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/functions/add_to_favorite.dart';
- import '../../../core/utils/size_config.dart';
+import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/back_icon.dart';
 import '../../../core/widgets/icon_button_item.dart';
 import '../../../core/widgets/loading_item.dart';
