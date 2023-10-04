@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/constants/app_colors.dart';
+
 import 'config/app_controller/appcontrorller_cubit.dart';
+import 'core/constants/app_colors.dart';
 import 'core/utils/functions/app_route.dart';
 
 class ShopApp extends StatelessWidget {

@@ -3,14 +3,17 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
- import '../../modules/home_screen/view/widgets/price_widget.dart';
+import '../../modules/home_screen/view/widgets/price_widget.dart';
 import '../constants/app_colors.dart';
 import '../constants/route_key.dart';
 import '../utils/size_config.dart';
-import 'text_widget.dart';
-
+ 
 class OnSaleItem extends StatelessWidget {
-  const OnSaleItem({super.key, required this.product, required this.onTapCart, required this.onTapFavorite});
+  const OnSaleItem(
+      {super.key,
+      required this.product,
+      required this.onTapCart,
+      required this.onTapFavorite});
   final QueryDocumentSnapshot<Map<String, dynamic>> product;
   final VoidCallback onTapCart;
   final VoidCallback onTapFavorite;
@@ -19,10 +22,13 @@ class OnSaleItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, RouteKeys.productDetailsScreen,
           arguments: (product.id)),
-      child: Material(
+      child: Container(
+        width: 200, 
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        borderRadius: BorderRadius.circular(12),
-        color: AppColors.primaryColor,
         child: Padding(
           padding: EdgeInsets.all(getWidth(8)),
           child: Column(
@@ -30,12 +36,14 @@ class OnSaleItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SizedBox(
+                  Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                     height: getHeight(70),
                     width: getWidth(70),
                     child: FancyShimmerImage(
-                      boxDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
+                      boxFit: BoxFit.fill,
                       imageUrl: product.get("main_image"),
                     ),
                   ),
@@ -58,7 +66,7 @@ class OnSaleItem extends StatelessWidget {
                             width: getWidth(5),
                           ),
                           GestureDetector(
-                            onTap:onTapFavorite,
+                            onTap: onTapFavorite,
                             child: Icon(
                               IconlyLight.heart,
                               color: AppColors.whiteColor,
@@ -75,18 +83,20 @@ class OnSaleItem extends StatelessWidget {
                 height: getHeight(8),
               ),
               PriceWidget(
-                                 salePrice:product.get("on_sale_price"),
-                    price:product.get("price"),
-                    isOnSale: product.get("is_on_sale")) 
-               ,
+                  salePrice: product.get("on_sale_price"),
+                  price: product.get("price"),
+                  isOnSale: product.get("is_on_sale")),
               SizedBox(
                 height: getHeight(8),
               ),
-              TextWidget(
-                text: product.get("title"),
-                color: AppColors.whiteColor,
-                textSize: getFont(25),
-                isBold: true,
+              Text(
+                product.get("title"),
+            overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.whiteColor,
+                ),
               )
             ],
           ),

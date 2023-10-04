@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/size_config.dart';
-
+ 
 class TextFieldItem extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextInputType textInputType;
@@ -85,7 +84,7 @@ class TextFieldItem extends StatelessWidget {
             child: Icon(
               
               prefexIcon,
-              size: getWidth(26),
+              size:  26,
               color: Colors.white,
             ),
           ),

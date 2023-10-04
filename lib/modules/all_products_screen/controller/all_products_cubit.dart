@@ -16,25 +16,30 @@ part 'all_products_state.dart';
 
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit() : super(AllProductsInitial()) {
-    scrollController.addListener(loadMore);
+    // scrollController.addListener(loadMore);
   }
-  int limit = 20;
+  int limit = 700;
   String nextPageToken = "";
   bool isLoadingMore = false;
 
   loadMore() async {
-    isLoadingMore = true;
-    emit(LoadidngLoadMoreState());
-    final res = await serviceLocator.get<DioConsumer>().get(
-        "${EndPoints.firestoreBaseUrl}/${FirestoreKeys.proucts}?pageSize=$limit&pageToken=$nextPageToken");
-    for (var element in List.from(res["documents"])) {
-      allProduct.add(ProductModel.fromJson(element));
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      isLoadingMore = true;
+      emit(LoadidngLoadMoreState());
+      try {
+        final res = await serviceLocator.get<DioConsumer>().get(
+            "${EndPoints.firestoreBaseUrl}/${FirestoreKeys.proucts}?pageSize=$limit&pageToken=$nextPageToken");
+        for (var element in List.from(res["documents"])) {
+          allProduct.add(ProductModel.fromJson(element));
+        }
+        nextPageToken = res["nextPageToken"];
+        product = allProduct;
+        serarchCount = product.length;
+      } catch (e) {}
+      isLoadingMore = false;
+      emit(SuccessLoadMoreState());
     }
-    nextPageToken = res["nextPageToken"];
-    product = allProduct;
-    serarchCount = product.length;
-    isLoadingMore = false;
-    emit(SuccessLoadMoreState());
   }
 
   static AllProductsCubit get(context) => BlocProvider.of(context);
@@ -49,7 +54,7 @@ class AllProductsCubit extends Cubit<AllProductsState> {
     isLoadingProducts = true;
     allProduct = [];
     emit(LoadidngGetAllProductState());
-
+ 
     try {
       final res = await serviceLocator.get<DioConsumer>().get(
           "${EndPoints.firestoreBaseUrl}/${FirestoreKeys.proucts}?pageSize=$limit");

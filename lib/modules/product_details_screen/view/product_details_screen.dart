@@ -3,15 +3,15 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+
+import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/functions/add_to_favorite.dart';
+ import '../../../core/utils/size_config.dart';
+import '../../../core/widgets/back_icon.dart';
+import '../../../core/widgets/icon_button_item.dart';
 import '../../../core/widgets/loading_item.dart';
 import '../../../core/widgets/text_widget.dart';
 import '../../home_screen/view/widgets/price_widget.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/utils/functions/add_to_favorite.dart';
-import '../../../core/utils/functions/camil_case.dart';
-import '../../../core/widgets/back_icon.dart';
-import '../../../core/utils/size_config.dart';
-import '../../../core/widgets/icon_button_item.dart';
 import '../controller/product_details_cubit.dart';
 import 'widgets/swip_button.dart';
 
@@ -74,13 +74,18 @@ class ProductDetailsScreen extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  TextWidget(
-                                      text: camilCaseMethod(controller.product!
-                                          .fields!.title!.stringValue!),
-                                      isBold: true,
-                                      color: Colors.white,
-                                      textSize: getFont(28)),
-                                  const Spacer(),
+                                  Expanded(
+                                    child: Text (
+                                        controller.product!
+                                            .fields!.title!.stringValue!,
+                                            overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: getFont(28)
+                                        ),),
+                                  ),
+                                   
                                   IconButtonItem(
                                       icon: IconlyLight.heart,
                                       color: AppColors.whiteColor,
@@ -103,6 +108,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     vertical: getHeight(15)),
                                 child: Row(
+                                
                                   children: [
                                     TextWidget(
                                         text: "Price : ",
@@ -124,12 +130,25 @@ class ProductDetailsScreen extends StatelessWidget {
                                   isBold: true,
                                   color: Colors.grey.shade300,
                                   textSize: getFont(26)),
-                              TextWidget(
-                                  text: controller.product!.fields!.description!
-                                      .stringValue!,
-                                  color: Colors.white,
-                                  maxlines: 20,
-                                  textSize: getFont(23)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                         controller.product!.fields!.description!
+                                            .stringValue!,
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
+                                       overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                           fontSize: getFont(23),
+                                             color: Colors.white,
+                                        ),
+                                     
+                                      ),
+                                  ),
+                                ],
+                              ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: getHeight(15)),

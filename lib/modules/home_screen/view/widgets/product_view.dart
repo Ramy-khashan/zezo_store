@@ -5,9 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/route_key.dart';
-import '../../../../core/utils/functions/camil_case.dart';
-import '../../../../core/utils/size_config.dart';
-import '../../../../core/widgets/text_widget.dart';
+  import '../../../../core/widgets/text_widget.dart';
 import 'price_widget.dart'; 
 class ProductViewItem extends StatelessWidget {
   final QueryDocumentSnapshot<Map<String, dynamic>>  product;
@@ -22,7 +20,7 @@ class ProductViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+     return GestureDetector(
         onTap: () => Navigator.pushNamed(
             context, RouteKeys.productDetailsScreen,
             arguments: (product.id)),
@@ -61,10 +59,10 @@ class ProductViewItem extends StatelessWidget {
               footer: GridTileBar(
                 backgroundColor: AppColors.primaryColor,
                 title: TextWidget(
-                  text: camilCaseMethod(product.get("title")),
+                  text: product.get("title") ,
                   color: Colors.white,
                   isBold: true,
-                  textSize: getFont(21),
+                  textSize:  20 ,
                   maxlines: 1,
                 ),
                 subtitle: PriceWidget(

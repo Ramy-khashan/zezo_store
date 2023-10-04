@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
- import '../constants/route_key.dart';
+import '../constants/route_key.dart';
 import '../utils/size_config.dart';
- import 'text_widget.dart';
+import 'text_widget.dart';
 
 class EmptyScreen extends StatelessWidget {
   final String imagePath, headText, text, textButton;
