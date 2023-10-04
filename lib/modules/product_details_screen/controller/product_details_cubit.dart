@@ -68,7 +68,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
                   ? product!.fields!.onSalePrice!.stringValue!
                   : product!.fields!.price!.stringValue!,
               productTitle: product!.fields!.title!.stringValue!,
-              quantaty: 1,
+              quantaty:quantaty ,
               userId: userId);
 
       isLoadingAddCart = false;

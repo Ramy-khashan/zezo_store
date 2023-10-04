@@ -2,8 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/utils/functions/camil_case.dart';
-import '../../../../core/utils/size_config.dart';
+ import '../../../../core/utils/size_config.dart';
 import '../../../../core/widgets/text_widget.dart';
 import '../../../category_products/view/category_product_scren.dart';
 
@@ -48,7 +47,7 @@ class CatItem extends StatelessWidget {
               footer: GridTileBar(
                backgroundColor: passedColor.withOpacity(.4),
                 leading: TextWidget(
-                  text: camilCaseMethod(title),
+                  text:  title,
                   color: AppColors.whiteColor,
                   textSize: getFont(22),
                   isBold: true,

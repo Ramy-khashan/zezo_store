@@ -43,7 +43,6 @@ class TextFieldItem extends StatelessWidget {
         maxLines: maxlines,
         textAlign: textAlign,
         keyboardType: textInputType,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         focusNode: focusNode,
         controller: controller,
         validator: validator,

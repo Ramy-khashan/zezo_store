@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../core/constants/firestore_keys.dart';
 import '../../../core/constants/storage_keys.dart';
 import '../../../core/utils/functions/app_toast.dart';
+import '../../../shop_app.dart';
 
 part 'special_order_state.dart';
 
@@ -34,7 +35,7 @@ class SpecialOrderCubit extends Cubit<SpecialOrderState> {
   final addressController = TextEditingController();
   bool isClick = false;
   bool isLoading = false;
-  createOrder() async {
+    createOrder() async {
     if (key.currentState!.validate()) {
       isLoading = true;
       emit(LoadingSpecialOrderState());
@@ -55,6 +56,10 @@ class SpecialOrderCubit extends Cubit<SpecialOrderState> {
           addressController.clear();
           descriptionController.clear();
           isLoading = false;
+            FocusScopeNode focusScopeNode = FocusScope.of(ShopApp.navigatorKey.currentContext!);
+        if (!focusScopeNode.hasPrimaryFocus) {
+          return focusScopeNode.unfocus();
+        }
           emit(SuccessSpecialOrderState());
           appToast("Order Created Successfully");
         });

@@ -7,14 +7,13 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../../core/utils/functions/app_toast.dart';
 import '../../../../core/utils/functions/camil_case.dart';
 import '../../../../core/widgets/text_widget.dart';
-import '../../model/order_model.dart';
-
+ 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/size_config.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({super.key, required this.orderData});
-  final OrderModel orderData;
+  final  QueryDocumentSnapshot<Map<String, dynamic>>  orderData;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,7 +30,7 @@ class OrderItem extends StatelessWidget {
                 Row(
                   children: [
                     TextWidget(
-                        text: "Order Id${orderData.name!.split("/").last}",
+                        text: "Order Id${orderData.id}",
                         color: Colors.white,
                         isBold: true,
                         textSize: getFont(21)),
@@ -57,22 +56,14 @@ class OrderItem extends StatelessWidget {
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: FancyShimmerImage(
-                          imageUrl: orderData
-                              .fields!
-                              .products!
-                              .arrayValue!
-                              .values![index]
-                              .mapValue!
-                              .fields!
-                              .image!
-                              .stringValue!,
+                          imageUrl: orderData.get("products")[index]["image"]
+                             ,
                           height: size.longestSide * .1,
                           width: size.shortestSide * .17,
                         ),
                       ),
                       title: Text(
-                        orderData.fields!.products!.arrayValue!.values![index]
-                            .mapValue!.fields!.title!.stringValue!,
+                        orderData.get("products")[index]["title"],
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: size.shortestSide * .05,
@@ -80,14 +71,14 @@ class OrderItem extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        "Quantity : ${orderData.fields!.products!.arrayValue!.values![index].mapValue!.fields!.quantity!.stringValue}",
+                        "Quantity : ${ orderData.get("products")[index]["quantity"]}",
                         style: TextStyle(
                             fontSize: size.shortestSide * .043,
                             color: AppColors.whiteColor,
                             fontWeight: FontWeight.w500),
                       ),
                       trailing: Text(
-                        "${orderData.fields!.products!.arrayValue!.values![index].mapValue!.fields!.price!.stringValue} LE.",
+                        "${ orderData.get("products")[index]["price"]} LE.",
                         style: TextStyle(
                             color: AppColors.whiteColor,
                             fontSize: size.shortestSide * .045,
@@ -95,7 +86,7 @@ class OrderItem extends StatelessWidget {
                       ),
                     ),
                     itemCount:
-                        orderData.fields!.products!.arrayValue!.values!.length,
+                        orderData.get("products").length,
                     separatorBuilder: (context, index) => SizedBox(
                       height: getHeight(5),
                     ),
@@ -112,12 +103,10 @@ class OrderItem extends StatelessWidget {
                           fontSize: getFont(21),
                           fontWeight: FontWeight.bold)),
                   TextSpan(
-                      text: json.decode(orderData.fields!.paymentData!
-                                  .stringValue!)["success"] ==
+                      text: json.decode(orderData.get("payment_data"))["success"] ==
                               "cash"
                           ? "Cash Payment"
-                          : json.decode(orderData.fields!.paymentData!
-                                      .stringValue!)["success"] ==
+                          : json.decode( orderData.get("payment_data"))["success"] ==
                                   "true"
                               ? "Success"
                               : "Faild",
@@ -131,7 +120,7 @@ class OrderItem extends StatelessWidget {
                 ),
                 TextWidget(
                   text:
-                      "Payment Type : ${camilCaseMethod(orderData.fields!.payment!.stringValue!)}",
+                      "Payment Type : ${camilCaseMethod( orderData.get("payment"))}",
                   color: Colors.white,
                   textSize: getFont(21),
                   isBold: true,
