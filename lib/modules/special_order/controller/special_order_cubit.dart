@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../core/constants/firestore_keys.dart';
 import '../../../core/constants/storage_keys.dart';
+import '../../../core/notification/notification_services.dart';
 import '../../../core/utils/functions/app_toast.dart';
 import '../../../shop_app.dart';
 
@@ -61,12 +64,16 @@ class SpecialOrderCubit extends Cubit<SpecialOrderState> {
           return focusScopeNode.unfocus();
         }
           emit(SuccessSpecialOrderState());
-          appToast("Order Created Successfully");
+          // appToast("Order Created Successfully");
+          NotificationService().showNotification(
+        Random().nextInt(10000), "Zezo Store", "Your special order has been created successfully");
         });
       } catch (e) {
         isLoading = false;
         emit(FailedSpecialOrderState());
-        appToast("Faild To Create This Order");
+         NotificationService().showNotification(
+        Random().nextInt(10000), "Zezo Store", "Failed To Create This Order");
+        appToast("");
       }
     }
   }

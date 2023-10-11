@@ -87,9 +87,7 @@ class AllProductScreen extends StatelessWidget {
                 onRefresh: () async {
                   await controller.getProduct();
                 },
-                child: Padding(
-                  padding: EdgeInsets.all(getWidth(10)),
-                  child: Center(
+                child:  Center(
                     child: controller.isLoadingProducts
                         ? const LoadingItem()
                         : controller.isFaild
@@ -142,62 +140,54 @@ class AllProductScreen extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.whiteColor),
                                       )
-                                    : Column(
-                                        children: [
-                                          Expanded(
-                                            child: GridView.count(
-                                              controller:
-                                                  controller.scrollController,
-                                              crossAxisCount: 2,
-                                              childAspectRatio: 7 / 9,
-                                              mainAxisSpacing: 13,
-                                              crossAxisSpacing: 10,
-                                              children: List.generate(
-                                                controller.product.length,
-                                                (index) => ProductItem(
-                                                  onTapCart: () {
-                                                    controller.addToCart(
-                                                        controller
-                                                            .product[index]);
-                                                  },
-                                                  product:
-                                                      controller.product[index],
-                                                  onTapFavorite: () async {
-                                                    await addTofavorite(
-                                                        userId:
-                                                            controller.userId!,
-                                                       productId: controller
-                                                    .product[index]
-                                                    .fields!
-                                                    .productId!
-                                                    .stringValue!,
-                                                productImg: controller
-                                                    .product[index]
-                                                    .fields!
-                                                    .mainImage!
-                                                    .stringValue!,
-                                                productPrice: controller
-                                                    .product[index]
-                                                    .fields!
-                                                    .title!
-                                                    .stringValue!,
-                                                productTitle: controller
-                                                    .product[index]
-                                                    .fields!
-                                                    .price!
-                                                    .stringValue!);
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          controller.isLoadingMore
-                                              ? const LoadingItem()
-                                              : const SizedBox()
-                                        ],
+                                    :   GridView.builder(  
+                                  gridDelegate:
+                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 200,
+                                          mainAxisExtent: 260, 
+                                          crossAxisSpacing: 17,
+                                          mainAxisSpacing: 20),
+                                          itemCount:   controller.product.length,
+                                          itemBuilder:(context, index) =>   ProductItem(
+                                          onTapCart: () {
+                                            controller.addToCart(
+                                                controller
+                                                    .product[index]);
+                                          },
+                                          product:
+                                              controller.product[index],
+                                          onTapFavorite: () async {
+                                            await addTofavorite(
+                                                userId:
+                                                    controller.userId!,
+                                               productId: controller
+                                            .product[index]
+                                            .fields!
+                                            .productId!
+                                            .stringValue!,
+                                        productImg: controller
+                                            .product[index]
+                                            .fields!
+                                            .mainImage!
+                                            .stringValue!,
+                                        productPrice: controller
+                                            .product[index]
+                                            .fields!
+                                            .title!
+                                            .stringValue!,
+                                        productTitle: controller
+                                            .product[index]
+                                            .fields!
+                                            .price!
+                                            .stringValue!);
+                                          },
+                                        ),
                                       ),
+                                          
+                                          
+                                       
                   ),
-                ),
+               
               ));
         },
       ),
