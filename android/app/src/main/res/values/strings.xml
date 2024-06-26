@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Zezo Store</string>
+<string name="facebook_app_id">6701763679901406</string>
+<string name="fb_login_protocol_scheme">fb236ec75ec7f45e1539a71fad119c447d</string>
+<string name="facebook_client_token">236ec75ec7f45e1539a71fad119c447d</string>
+</resources>
