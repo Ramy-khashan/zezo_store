@@ -28,8 +28,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginRepositoryImpl) : super(LoginInitial());
   getNotification() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
+      FirebaseMessaging.instance.subscribeToTopic("users");
+     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
