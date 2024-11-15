@@ -18,8 +18,6 @@ import '../../../core/utils/functions/app_toast.dart';
 import '../../../core/utils/functions/camil_case.dart';
 import '../../../core/utils/functions/locator_service.dart';
 import '../../bottom_navigation_screen/view/bottom_navigation_screen.dart';
-import '../../payment/view/payment_screen.dart';
-
 part 'order_data_event.dart';
 part 'order_data_state.dart';
 
@@ -59,11 +57,11 @@ class OrderPaymentDataBloc
     response.fold((l) {
       Fluttertoast.showToast(msg: "Faild");
     }, (token) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PaymentScreen(token: token, map: map),
-          ));
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => PaymentScreen(token: token, map: map),
+      //     ));
     });
   }
 

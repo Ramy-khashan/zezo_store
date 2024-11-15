@@ -55,7 +55,7 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
       "phone_number": "+2${phoneController.text}",
       "building": buildingtController.text.trim(),
       "status": "waiting",
-      "street": int.parse(streatController.text),
+      "street": streatController.text,
       "address": addressController.text,
       "city": cityController.text.trim(),
       "user_id":
@@ -64,12 +64,14 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
 
     await FirebaseFirestore.instance
         .collection("order")
-        .add({"products": map}).then((value) async {
+        .add(Map.from(map))
+        .then((value) async {
       FirebaseFirestore.instance
           .collection("order")
           .doc(value.id)
           .update({"order_id": value.id, "payment_status": "success"});
       if (map['payment'] == "cash") {
+        deleteCart();
         Fluttertoast.showToast(msg: "Create Order Successfuly");
         Navigator.pushAndRemoveUntil(
             context,
@@ -82,7 +84,8 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
           context: context,
           currency: "EGP",
           // items: map['products'],
-          amountInCents: (double.parse(map['totalPrice'].toString()) * 10).toString(),
+          amountInCents:
+              (double.parse(map['totalPrice'].toString()) * 10).toString(),
           onPayment: (response) async {
             await FirebaseFirestore.instance
                 .collection("order")
@@ -105,7 +108,6 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
             });
           },
         );
-    
       }
       isLoadingCreateOrder = false;
       emit(SucessCreateState());
@@ -116,6 +118,28 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
       );
       isLoadingCreateOrder = false;
       emit(FailedCreateState());
+    });
+  }
+
+  deleteCart() async {
+    String? userDocID =
+        await FlutterSecureStorage().read(key: StorageKeys.userId);
+    await FirebaseFirestore.instance
+        .collection("cart")
+        .doc(userDocID)
+        .collection("cart_products")
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        FirebaseFirestore.instance
+            .collection("cart")
+            .doc(userDocID)
+            .collection("cart_products")
+            .doc(element.id)
+            .delete();
+      });
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
     });
   }
 }

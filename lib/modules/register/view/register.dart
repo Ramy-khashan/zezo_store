@@ -72,7 +72,7 @@ class RegisterScreen extends StatelessWidget {
                               controller: controller.nameController,
                               onEditingComplete: () => FocusScope.of(context)
                                   .requestFocus(controller.emailFocusNode),
-                              validator: (value) => Validate.validateName(value!),
+                              validator: (value) => Validate.notEmpty(value!),
                               textInputAction: TextInputAction.next,
                               textInputType: TextInputType.name,
                             ),

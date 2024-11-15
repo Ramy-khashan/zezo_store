@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
     SizeConfig().init(context);
 
     return BlocProvider.value(
-      value: AppcontrorllerCubit(),
+      value:BlocProvider.of<AppcontrorllerCubit>(context)..getCartLenth() ,
       child: BlocProvider(
         create: (context) => HomePageCubit()..getUSerDetails(),
         child: BlocConsumer<HomePageCubit, HomePageState>(

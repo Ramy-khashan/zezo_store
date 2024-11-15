@@ -73,8 +73,14 @@ flutter_native_splash:
   icon_background_color: "#FFFFFF"
   icon_background_color_dark: "#1c1b20"
 dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/zezo_white.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

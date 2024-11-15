@@ -35,7 +35,7 @@ class EmptyScreen extends StatelessWidget {
               height: getHeight(20),
             ),
             TextWidget(
-              text: 'Whoops!',
+              text: 'Nothing yet!',
               color: Colors.redAccent,
               textSize: getFont(35),
               isBold: true,
@@ -52,7 +52,8 @@ class EmptyScreen extends StatelessWidget {
             ),
             Text(
               text,
-              style: const TextStyle(color: Colors.cyan, fontSize: 20),
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.cyan, fontSize: 20,),
             ),
             const SizedBox(
               height: 30,

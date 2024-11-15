@@ -94,7 +94,7 @@ class OrderPaymentDataScreen extends StatelessWidget {
                                           controller: controller.streatController,
                                           hint: "Streat",
                                           validate: (val) => Validate.notEmpty(val),
-                                          textInputType: TextInputType.number),
+                                          textInputType: TextInputType.text),
                                       OrderPaymentTextfieldItem(
                                           validate: (val) => Validate.notEmpty(val),
                                           controller:

@@ -1,23 +1,23 @@
-import 'dart:convert'; 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../../core/utils/functions/app_toast.dart';
 import '../../../../core/utils/functions/camil_case.dart';
-import '../../../../core/widgets/text_widget.dart'; 
+import '../../../../core/widgets/text_widget.dart';
 import '../../../../core/utils/size_config.dart';
+import '../../models/order_model.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({super.key, required this.orderData});
-  final  QueryDocumentSnapshot<Map<String, dynamic>>  orderData;
+  final OrderModel orderData;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-        child: Card( 
+        child: Card(
           child: Padding(
             padding: EdgeInsets.all(getWidth(10)),
             child: Column(
@@ -26,9 +26,9 @@ class OrderItem extends StatelessWidget {
                 Row(
                   children: [
                     TextWidget(
-                        text: "Order Id${orderData.id}",
-                         isBold: true,
-                        textSize: getFont(21)),
+                        text: "Order Id : ${orderData.orderId}",
+                        isBold: true,
+                        textSize: getFont(18)),
                     const Spacer(),
                     IconButton(
                         onPressed: () {
@@ -36,7 +36,7 @@ class OrderItem extends StatelessWidget {
                         },
                         icon: const Icon(
                           IconlyLight.infoSquare,
-                          size: 28, 
+                          size: 28,
                         ))
                   ],
                 ),
@@ -50,34 +50,32 @@ class OrderItem extends StatelessWidget {
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: FancyShimmerImage(
-                          imageUrl: orderData.get("products")[index]["image"]
-                             ,
+                          imageUrl: orderData.products![index].image!,
                           height: size.longestSide * .1,
                           width: size.shortestSide * .17,
                         ),
                       ),
                       title: Text(
-                        orderData.get("products")[index]["title"],
+                        orderData.products![index].title!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: size.shortestSide * .05, 
+                            fontSize: size.shortestSide * .05,
                             fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        "Quantity : ${ orderData.get("products")[index]["quantity"]}",
+                        "Quantity : ${orderData.products![index].quantity}",
                         style: TextStyle(
-                            fontSize: size.shortestSide * .043, 
+                            fontSize: size.shortestSide * .043,
                             fontWeight: FontWeight.w500),
                       ),
                       trailing: Text(
-                        "${ orderData.get("products")[index]["price"]} LE.",
-                        style: TextStyle( 
+                        "${orderData.products![index].price} LE.",
+                        style: TextStyle(
                             fontSize: size.shortestSide * .045,
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    itemCount:
-                        orderData.get("products").length,
+                    itemCount: orderData.products!.length,
                     separatorBuilder: (context, index) => SizedBox(
                       height: getHeight(5),
                     ),
@@ -89,29 +87,40 @@ class OrderItem extends StatelessWidget {
                 Text.rich(TextSpan(children: [
                   TextSpan(
                       text: "Payment : ",
-                      style: TextStyle( 
-                          fontSize: getFont(21),
-                          fontWeight: FontWeight.bold)),
-                  TextSpan(
-                      text: json.decode(orderData.get("payment_data"))["success"] ==
-                              "cash"
-                          ? "Cash Payment"
-                          : json.decode( orderData.get("payment_data"))["success"] ==
-                                  "true"
-                              ? "Success"
-                              : "Faild",
                       style: TextStyle(
-                          color: Colors.amber,
+                          fontSize: getFont(21), fontWeight: FontWeight.bold)),
+                  TextSpan(
+                      text: camilCaseMethod(orderData.paymentStatus.toString()),
+                      style: TextStyle(
+                          color: orderData.paymentStatus == 'success'
+                              ? Colors.green
+                              : orderData.paymentStatus == "failed"
+                                  ? Colors.red
+                                  : Colors.amber,
                           fontSize: getFont(21),
                           fontWeight: FontWeight.bold))
+                  // TextSpan(
+                  //     text: json.decode(
+                  //                 orderData.payment ==
+                  //             "cash"
+                  //         ? "Cash Payment"
+                  //         : json.decode(orderData.get("payment_data"))[
+                  //                     "success"] ==
+                  //                 "true"
+                  //             ? "Success"
+                  //             : "Faild",
+                  //     style: TextStyle(
+                  //         color: Colors.amber,
+                  //         fontSize: getFont(21),
+                  //         fontWeight: FontWeight.bold))
                 ])),
                 SizedBox(
                   height: getHeight(8),
                 ),
                 TextWidget(
                   text:
-                      "Payment Type : ${camilCaseMethod( orderData.get("payment"))}",
-                   textSize: getFont(21),
+                      "Payment Type : ${camilCaseMethod(orderData.payment.toString())}",
+                  textSize: getFont(21),
                   isBold: true,
                 ),
                 const SizedBox(

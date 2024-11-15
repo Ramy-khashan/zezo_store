@@ -14,6 +14,7 @@ import '../../../modules/register/view/register.dart';
 import '../../../modules/reports/view/reports_screen.dart';
 import '../../../modules/reset_password/view/reset_password_screen.dart';
 import '../../../modules/special_order_request/view/special_order_requests.dart';
+import '../../../modules/splash_screen/view/splash_screen.dart';
 import '../../../modules/wishlist_screen/view/wishlist_screen.dart';
 import '../../constants/route_key.dart';
 import '../../repository/login/login_repository_impl.dart';
@@ -97,13 +98,7 @@ class AppRoute {
         );
     }
     return MaterialPageRoute(builder: (BuildContext context) {
-      return userId != null
-          ? const BottomNavigationScreen()
-          : BlocProvider<LoginCubit>(
-              create: (BuildContext _) =>
-                  LoginCubit(serviceLocator.get<LoginRepositoryImpl>())
-                    ..getNotification(),
-              child: const LoginScreen());
+      return SplashScreen();
     });
   }
 }

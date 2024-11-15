@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>935517971692-2mq53maht8gineomhbo76p1kp5rr7u0j.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.935517971692-2mq53maht8gineomhbo76p1kp5rr7u0j</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>935517971692-b9hgtpt30pijgtj6dt51q998ka2si4g0.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCBJOU7YcAUMe1oitumoqYetc_aTIFf5MU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>935517971692</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.zezostore.zezo</string>
+	<key>PROJECT_ID</key>
+	<string>zezo-store-32084</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zezo-store-32084.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:935517971692:ios:24ca8edd63df642220f1c9</string>
+</dict>
+</plist>

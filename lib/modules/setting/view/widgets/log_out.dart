@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'; 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:store/modules/login/view/login.dart';
 import '../../../../core/utils/size_config.dart';
-import '../../../splash_screen/view/splash_screen.dart';
 
 Future<void> showLogoutDialog(BuildContext context) async {
   return await showDialog(
     context: context,
-    builder: (context) => AlertDialog(  
+    builder: (context) => AlertDialog(
       title: Row(
         children: [
           Image.asset(
@@ -33,8 +33,7 @@ Future<void> showLogoutDialog(BuildContext context) async {
           },
           child: Text(
             'Cancel',
-            style:
-                TextStyle(  fontSize: getFont(22)),
+            style: TextStyle(fontSize: getFont(22)),
           ),
         ),
         TextButton(
@@ -43,7 +42,7 @@ Future<void> showLogoutDialog(BuildContext context) async {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SplashScreen(),
+                  builder: (context) => const LoginScreen(),
                 ),
               );
             });

@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../../../core/constants/route_key.dart';
-import '../../../core/constants/storage_keys.dart';
-import '../../../core/utils/size_config.dart';
+ import '../../../core/constants/route_key.dart';
+ import '../../../core/utils/size_config.dart';
 import '../../../shop_app.dart';
 // import '../../login/view/widgets/rain_animation.dart';
 
@@ -19,11 +17,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(const Duration(milliseconds: 3000), () async {
-      String? userId =
-          await const FlutterSecureStorage().read(key: StorageKeys.userId);
+     
       Navigator.pushNamedAndRemoveUntil(
           ShopApp.navigatorKey.currentContext!,
-          userId != null ? RouteKeys.homeScreen : RouteKeys.loginScreen,
+            RouteKeys.homeScreen  ,
           (route) => false);
     });
     super.initState();

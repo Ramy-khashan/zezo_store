@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -28,8 +27,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginRepositoryImpl) : super(LoginInitial());
   getNotification() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-      FirebaseMessaging.instance.subscribeToTopic("users");
-     NotificationSettings settings = await messaging.requestPermission(
+    // await FirebaseMessaging.instance.subscribeToTopic("users");
+  await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -39,16 +38,16 @@ class LoginCubit extends Cubit<LoginState> {
       sound: true,
     );
 
-    if (kDebugMode) {
-      print('User granted permission: ${settings.authorizationStatus}');
-    }
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      await NotificationService().initNotification();
+    try {
+      await FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+        await NotificationService().initNotification();
 
-      NotificationService().showNotification(
-          4, message.notification!.title!, message.notification!.body!);
-    });
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+        NotificationService().showNotification(
+            4, message.notification!.title!, message.notification!.body!);
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   static LoginCubit get(context) => BlocProvider.of(context);
@@ -115,12 +114,15 @@ class LoginCubit extends Cubit<LoginState> {
   bool isLoggedIn = false;
   Map userObj = {};
   signInWithFacebook(context) async {
-   await FacebookAuth.i
+    await FacebookAuth.i
         .login(permissions: ["public_profile", "email"]).then((value) {
       FacebookAuth.instance.getUserData().then((userData) {
         isLoggedIn = true;
         userObj = userData;
       });
     });
+  }
+  signInWithApple(){
+    appToast("Comming Soon!");
   }
 }

@@ -1,10 +1,9 @@
 // ignore_for_file: dead_code
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store/core/utils/enums.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/firestore_keys.dart';
 import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/back_icon.dart';
 import '../../../core/widgets/empty_screen.dart';
@@ -19,76 +18,68 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => OrderCubit()..getUserDetails(),
+        create: (context) => OrderCubit()..getOrders(),
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            leading: const BackIcon(),
-            centerTitle: true,
-            title: TextWidget(
-               text: 'Your Orders',
-              textSize: getFont(26),
-              isBold: true,
-            ),
-          ),
-          body: Stack(
-            children: [
-              Center(
-                child: Image.asset(
-                  "assets/images/zezo_white.png",
-                  color: Theme.of(context).brightness.index == 0
-                      ? Colors.white.withOpacity(.2)
-                      : AppColors.blackColor.withOpacity(.1),
-                  height: 600,
-                  width: 500,
-                  fit: BoxFit.cover,
-                 ),
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              elevation: 0,
+              automaticallyImplyLeading: false,
+              leading: const BackIcon(),
+              centerTitle: true,
+              title: TextWidget(
+                text: 'Your Orders',
+                textSize: getFont(26),
+                isBold: true,
               ),
-              BlocBuilder<OrderCubit, OrderState>(builder: (context, state) {
-                final controller = OrderCubit.get(context);
-                return controller.isLoading
-                    ? const LoadingItem()
-                    : StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection(FirestoreKeys.order)
-                            .where("user_id", isEqualTo: controller.userId)
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return const Center(
-                              child: Text(
-                                "Something went wrong, Try again later.",
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            );
-                          }
-                          if (snapshot.hasData) {
-                            return snapshot.data!.docs.isEmpty
-                                ? const EmptyScreen(
-                                    imagePath: 'assets/images/cart.png',
-                                    headText: 'You didn\'t place any order yet',
-                                    text: 'Order something and make me happy :)',
-                                    textButton: 'Shop Now',
-                                  )
-                                : ListView.separated(
-                                    itemBuilder: (context, index) => OrderItem(
-                                        orderData: snapshot.data!.docs[index]),
-                                    separatorBuilder: (context, index) =>
-                                        const Divider(
-                                          thickness: 1, 
-                                        ),
-                                    itemCount: snapshot.data!.docs.length);
-                          }
-                          return const LoadingItem();
-                        });
-              }),
-            ],
-          ),
-        ));
+            ),
+            body:
+                BlocBuilder<OrderCubit, OrderState>(builder: (context, state) {
+              return RefreshIndicator.adaptive(
+                onRefresh: ()async{
+                await  BlocProvider.of<OrderCubit>(context).getOrders();
+                },
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        "assets/images/zezo_white.png",
+                        color: Theme.of(context).brightness.index == 0
+                            ? Colors.white.withOpacity(.2)
+                            : AppColors.blackColor.withOpacity(.1),
+                        height: 600,
+                        width: 500,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    if (state.status == OperationStatus.loading) LoadingItem(),
+                    if (state.status == OperationStatus.failed)
+                      const Center(
+                        child: Text(
+                          "Something went wrong, Try again later.",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    if (state.status == OperationStatus.success)
+                      state.orders.isEmpty
+                          ? const EmptyScreen(
+                              imagePath: 'assets/images/cart.png',
+                              headText: 'You didn\'t place any order yet',
+                              text: '',
+                              textButton: 'Shop Now',
+                            )
+                          : ListView.separated(
+                              itemBuilder: (context, index) =>
+                                  OrderItem(orderData: state.orders[index]),
+                              separatorBuilder: (context, index) => const Divider(
+                                    thickness: 1,
+                                  ),
+                              itemCount: state.orders.length),
+                  ],
+                ),
+              );
+            })));
   }
 }

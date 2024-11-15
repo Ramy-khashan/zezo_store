@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart'; 
 import '../../api/exceptions.dart';

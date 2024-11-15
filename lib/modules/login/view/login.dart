@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,29 +142,38 @@ class LoginScreen extends StatelessWidget {
                           ? const LoadingItem()
                           : AppButton(
                               onPressed: () {
-                                controller.isLoadginEmail
-                                    ? appToast("In Authentication Process")
-                                    : controller.signInWithGoogle(context);
+                                Platform.isAndroid
+                                    ? (controller.isLoadginEmail
+                                        ? appToast("In Authentication Process")
+                                        : controller.signInWithGoogle(context))
+                                    : controller.signInWithApple();
                               },
-                              color: Colors.grey,
+                              color:
+                                  Platform.isIOS ? Colors.black : Colors.grey,
                               child: Center(
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Image.asset(
-                                      'assets/images/google.png',
+                                      Platform.isIOS
+                                          ? "assets/images/apple.png"
+                                          : 'assets/images/google.png',
+                                      color:
+                                          Platform.isIOS ? Colors.white : null,
                                       fit: BoxFit.fill,
                                       width: getWidth(27),
                                     ),
                                     SizedBox(
                                       width: getWidth(10),
                                     ),
-                                    const Text(
-                                      'Sign in with google',
+                                    Text(
+                                      Platform.isIOS
+                                          ? 'Sign in with apple'
+                                          : 'Sign in with google',
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: 18),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 17),
                                     )
                                   ],
                                 ),

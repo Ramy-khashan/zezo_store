@@ -27,6 +27,7 @@ class CategoryCubit extends Cubit<CategoryState> {
         }
         emit(ScuessCategoryState());
       } catch (error) {
+        // ignore: deprecated_member_use
         if (error is DioError) {
           emit(FaildCategoryState(
               error: ServerException(error.toString()).message!));
