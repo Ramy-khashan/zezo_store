@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
- 
 class TextFieldItem extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextInputType textInputType;
@@ -28,16 +27,17 @@ class TextFieldItem extends StatelessWidget {
       this.suffixIcon,
       this.focusNode,
       this.verticalPadding,
-      this.raduis=25,
+      this.raduis = 25,
       this.onEditingComplete,
       this.controller,
       this.textAlign = TextAlign.start,
-      this.maxlines = 1, this.prefexIcon});
+      this.maxlines = 1,
+      this.prefexIcon});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:   EdgeInsets.symmetric(vertical:verticalPadding??0),
+      padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 0),
       child: TextFormField(
         textInputAction: textInputAction,
         maxLines: maxlines,
@@ -49,42 +49,42 @@ class TextFieldItem extends StatelessWidget {
         onEditingComplete: onEditingComplete,
         obscureText: obscureText,
         style: const TextStyle(
-          color: Colors.white,
-        ),
+            // color: Colors.white,
+            ),
         decoration: InputDecoration(
           isDense: true,
           hintText: hintText,
           hintStyle: const TextStyle(
-            color: Colors.white,
-          ),
+              // color: Colors.white,
+              ),
           border: OutlineInputBorder(
               borderSide: const BorderSide(
-                color: Colors.white,
-              ),
+                  // color: Colors.white,
+                  ),
               borderRadius: BorderRadius.circular(raduis)),
           enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
-                color: Colors.white,
-              ),
+                  // color: Colors.white,
+                  ),
               borderRadius: BorderRadius.circular(raduis)),
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(
-                color: Colors.white,
-              ),
+                  // color: Colors.white,
+                  ),
               borderRadius: BorderRadius.circular(raduis)),
           suffixIcon: GestureDetector(
             onTap: onTap,
             child: Icon(
               suffixIcon,
-              color: Colors.white,
+              // color: Colors.white,
             ),
-          ), prefixIcon: GestureDetector(
+          ),
+          prefixIcon: GestureDetector(
             onTap: onTap,
             child: Icon(
-              
               prefexIcon,
-              size:  26,
-              color: Colors.white,
+              size: 26,
+              // color: Colors.white,
             ),
           ),
         ),

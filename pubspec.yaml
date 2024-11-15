@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.4+5
+version: 1.0.7+8
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=3.1.5 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,13 +31,16 @@ dependencies:
   awesome_dialog: 
   card_swiper:  
   dartz:  
-  dio:  
+  dio: 5.2.1+1
   dio_http_formatter: 
   firebase_core:  
   firebase_auth:  
   firebase_messaging:  
   cloud_firestore:  
+  flutter_facebook_auth: ^6.0.2
+  permission_handler:
   equatable:  
+  flutter_widget_from_html:
   flutter_local_notifications:
   fancy_shimmer_image: 
   flutter:
@@ -53,8 +56,22 @@ dependencies:
   shared_preferences:  
   swipeable_button_view:  
   uuid:  
-  webview_flutter: 
-
+  paymob_payment: ^0.0.1
+  flutter_native_splash: 
+flutter_native_splash:
+ color: "#FFFFFF"
+ color_dark: "#1c1b20"
+ image: assets/images/zezo.png
+ image_dark: assets/images/zezo_white.png
+ icon_background_color: "#FFFFFF"
+ icon_background_color_dark: "#1c1b20"
+ android_12:
+  color: "#FFFFFF"
+  color_dark: "#1c1b20"
+  image: assets/images/zezo_light.png
+  image_dark: assets/images/zezo_dark.png 
+  icon_background_color: "#FFFFFF"
+  icon_background_color_dark: "#1c1b20"
 dev_dependencies:
   flutter_test:
     sdk: flutter

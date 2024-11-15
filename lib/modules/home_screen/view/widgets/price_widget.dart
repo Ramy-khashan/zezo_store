@@ -21,15 +21,15 @@ class PriceWidget extends StatelessWidget {
       children: [
         TextWidget(
           text: '$userPrice ${isOnSale ? "" : "LE"}',
-          color: Colors.green.shade300,
+          color: Colors.green,
+          isBold: true,
           textSize: 20,
         ),
         Visibility(
           visible: isOnSale ? true : false,
           child: Text(
             '$price LE',
-            style: TextStyle(
-              color: Colors.white,
+            style: TextStyle( 
               decoration: TextDecoration.lineThrough,
               decorationColor: Colors.red.shade300,
               decorationThickness: 3,

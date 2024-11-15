@@ -26,12 +26,12 @@ class ProductItem extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
             context, RouteKeys.productDetailsScreen,
             arguments: (product.fields!.productId!.stringValue)),
-        child: Container(
+        child: Material(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
+ elevation: 10,
             color: AppColors.blackColor,
             borderRadius: BorderRadius.circular(15),
-          ),
+          
           child: GridTile(
               header: GridTileBar(
                 title: Row(
@@ -40,7 +40,7 @@ class ProductItem extends StatelessWidget {
                         backgroundColor: AppColors.blackColor.withOpacity(.7),
                         child: GestureDetector(
                             onTap: onTapCart,
-                            child: Icon(
+                            child: const Icon(
                               IconlyLight.buy,
                               size: 28,
                               color: Colors.orange,
@@ -50,7 +50,7 @@ class ProductItem extends StatelessWidget {
                         backgroundColor: AppColors.blackColor.withOpacity(.7),
                         child: GestureDetector(
                             onTap: onTapFavorite,
-                            child: Icon(
+                            child: const Icon(
                               IconlyLight.heart,
                               size: 28,
                               color: Colors.orange,
@@ -58,19 +58,56 @@ class ProductItem extends StatelessWidget {
                   ],
                 ),
               ),
-              footer: GridTileBar(
-                backgroundColor: AppColors.primaryColor,
-                title: TextWidget(
-                  text: camilCaseMethod(product.fields!.title!.stringValue!),
-                  color: Colors.white,
-                  isBold: true,
-                  textSize: getFont(21),
-                  maxlines: 1,
-                ),
-                subtitle: PriceWidget(
-                    salePrice: product.fields!.onSalePrice!.stringValue!,
-                    price: product.fields!.price!.stringValue!,
-                    isOnSale: product.fields!.isOnSale!.booleanValue!),
+              footer: Stack(
+                children: [
+                  GridTileBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    title: TextWidget(
+                      text:
+                          camilCaseMethod(product.fields!.title!.stringValue!),
+                      color: Colors.white,
+                      isBold: true,
+                      textSize: getFont(21),
+                      maxlines: 1,
+                    ),
+                    subtitle: PriceWidget(
+                        salePrice: product.fields!.onSalePrice!.stringValue!,
+                        price: product.fields!.price!.stringValue!,
+                        isOnSale: product.fields!.isOnSale!.booleanValue!),
+                  ),
+                  product.fields!.isOnSale!.booleanValue!
+                      ? Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                            width: 50,
+                            height: 25,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 5,
+                                      spreadRadius: 1,
+                                      color: Colors.black54,
+                                      offset: Offset(2, 2))
+                                ],
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15))),
+                            child: Center(
+                              child: Text(
+                                "${(100 - (double.parse(product.fields!.onSalePrice!.stringValue.toString()) / double.parse(product.fields!.price!.stringValue.toString())) * 100).floor()}%",
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ),
+                      )
+                      : const SizedBox(),
+                ],
               ),
               child: FancyShimmerImage(
                   imageUrl: product.fields!.mainImage!.stringValue!)),

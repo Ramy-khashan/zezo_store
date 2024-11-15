@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
- import '../../../../core/utils/size_config.dart';
+import '../../../../core/utils/size_config.dart';
 
 class OrderPaymentTextfieldItem extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
+  final int? lines;
   final TextInputType textInputType;
   final Function(dynamic val) validate;
   const OrderPaymentTextfieldItem(
       {super.key,
       required this.controller,
+      this.lines,
       required this.hint,
       required this.textInputType,
       required this.validate});
@@ -20,20 +22,19 @@ class OrderPaymentTextfieldItem extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: textInputType,
+        maxLines: lines,
         validator: (value) => validate(value),
-        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: hint,
-          labelStyle: const TextStyle(color: Colors.white),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(color: Colors.white)),
+              borderSide: const BorderSide(color: Colors.grey)),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(color: Colors.white)),
+              borderSide: const BorderSide(color: Colors.grey)),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(color: Colors.white)),
+              borderSide: const BorderSide(color: Colors.grey)),
         ),
       ),
     );

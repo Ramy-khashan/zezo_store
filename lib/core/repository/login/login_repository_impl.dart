@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+ import 'package:flutter/foundation.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../modules/login/model/google_signin_model.dart';
+import '../../../modules/login/model/user.dart';
 import '../../api/dio_consumer.dart';
 import '../../api/end_points.dart';
 import '../../api/exceptions.dart';
@@ -18,7 +20,7 @@ import 'login_repository.dart';
 class LoginRepositoryImpl extends LoginRepository {
   final DioConsumer dio;
 
-  LoginRepositoryImpl({required this.dio});
+  LoginRepositoryImpl({required this.dio,required this.auth});
 
   @override
   Future<Either<ServerException, String>> signIn(
@@ -40,7 +42,7 @@ class LoginRepositoryImpl extends LoginRepository {
           .write(key: StorageKeys.isGoogleSign, value: "false");
       return right("");
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(dio.handleDioError(e));
       } else {
         return left(const ServerException("Invalid email or password"));
@@ -88,12 +90,13 @@ class LoginRepositoryImpl extends LoginRepository {
 
   @override
   Future<Either<String, String>> signInWithGoogle(context) async {
-     try {
+    try {
       GoogleSignIn signInGoogle = GoogleSignIn(
-          clientId:  "935517971692-tolf28l4c8te1k0f4l1safnns2upmrcl.apps.googleusercontent.com",
+          clientId:
+              "935517971692-tolf28l4c8te1k0f4l1safnns2upmrcl.apps.googleusercontent.com",
           scopes: ["email", "profile"]);
       signInGoogle.signOut();
-      
+
       GoogleSignInAccount? googleSignInAccount = await signInGoogle.signIn();
       GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount!.authentication;
@@ -177,5 +180,35 @@ class LoginRepositoryImpl extends LoginRepository {
     } else {
       await setLocalData(uid: userData.localId!, context: context);
     }
+  }
+
+ final FacebookAuth auth;
+ 
+  @override
+  Future<LoginResult> logIn() {
+    return auth.login();
+  }
+
+  @override
+  Future<User?> get user async {
+    if (await auth.accessToken != null) {
+      final userData = await auth.getUserData();
+
+      if (userData.isNotEmpty) {
+        final user = User(
+          userId: userData['id'],
+          name: userData['name'],
+          email: userData['email'],
+          profilePicture: userData['picture']?['data']?['url'],
+        );
+        return user;
+      }
+    }
+    return null;
+  }
+  
+  @override
+  Future<void> logOut() {
+    return auth.logOut();
   }
 }

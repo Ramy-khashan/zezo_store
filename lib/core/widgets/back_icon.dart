@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
-import '../constants/app_colors.dart';
-
+ 
 class BackIcon extends StatelessWidget {
   const BackIcon({super.key});
 
@@ -13,7 +12,7 @@ class BackIcon extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: const Icon(
         IconlyLight.arrowLeft2,
-        color: AppColors.whiteColor,
+        // color: AppColors.whiteColor,
       ),
     );
   }

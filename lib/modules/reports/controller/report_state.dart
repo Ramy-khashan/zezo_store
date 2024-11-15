@@ -12,6 +12,8 @@ class ReportInitial extends ReportState {}
 class StartUploadReporState extends ReportState {}
 
 class SuccessUploadReporState extends ReportState {}
+class LoadingGetDataState extends ReportState {}
+class GetDataState extends ReportState {}
 
 class FaildUploadReporState extends ReportState {
   final String error;

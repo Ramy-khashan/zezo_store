@@ -1,4 +1,3 @@
- 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -31,123 +30,126 @@ class WishListScreen extends StatelessWidget {
             centerTitle: true,
             title: TextWidget(
               text: 'WishList',
-              color: AppColors.whiteColor,
               textSize: getFont(24),
               isBold: true,
             ),
           ),
-          body: BlocBuilder<WishlistCubit, WishlistState>(
-              builder: (context, state) {
-            final controller = WishlistCubit.get(context);
-            return controller.userId == null
-                ? const LoadingItem()
-                : StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection("favorite")
-                        .doc(controller.userId)
-                        .collection("favorite_products")
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data!.docs.isEmpty) {
-                          return const EmptyScreen(
-                            imagePath: 'assets/images/wishlist.png',
-                            headText: 'Your wishlist is empty!',
-                            text: 'Explore more and shortlist some items',
-                            textButton: 'Add a wish',
-                          );
-                        } else {
-                          return GridView.builder(
-                              padding: EdgeInsets.all(getWidth(7)),
-                              gridDelegate:
-                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent: 200,
-                                      childAspectRatio: 3.4 / 4,
-                                      crossAxisSpacing: 20,
-                                      mainAxisSpacing: 20),
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RouteKeys.productDetailsScreen,
-                                        arguments: (snapshot.data!.docs[index]
-                                            .get("product_id")));
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: AppColors.blackColor,
-                                        borderRadius: BorderRadius.circular(16),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: AppColors.whiteColor
-                                                  .withOpacity(.5),
-                                              blurRadius: 6,
-                                              spreadRadius: 1)
-                                        ]),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: GridTile(
-                                      header: GridTileBar(
-                                        title: Row(
-                                          children: [
-                                            const Spacer(),
-                                            CircleAvatar(
-                                                backgroundColor: AppColors
-                                                    .blackColor
-                                                    .withOpacity(.5),
+          body: Stack(
+            children: [
+              Center(
+                child: Image.asset(
+                  "assets/images/zezo_white.png",
+                  color: Theme.of(context).brightness.index == 0
+                      ? Colors.white.withOpacity(.2)
+                      : AppColors.blackColor.withOpacity(.1),
+                  height: 600,
+                  width: 500,
+                  fit: BoxFit.cover,
+                 ),
+              ),
+              BlocBuilder<WishlistCubit, WishlistState>(
+                  builder: (context, state) {
+                final controller = WishlistCubit.get(context);
+                return controller.userId == null
+                    ? const LoadingItem()
+                    : StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("favorite")
+                            .doc(controller.userId)
+                            .collection("favorite_products")
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data!.docs.isEmpty) {
+                              return const EmptyScreen(
+                                imagePath: 'assets/images/wishlist.png',
+                                headText: 'Your wishlist is empty!',
+                                text: 'Explore more and shortlist some items',
+                                textButton: 'Add a wish',
+                              );
+                            } else {
+                              return GridView.builder(
+                                  padding: EdgeInsets.all(getWidth(7)),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 200,
+                                          childAspectRatio: 3.4 / 4,
+                                          crossAxisSpacing: 8,
+                                          mainAxisSpacing: 10),
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (BuildContext ctx, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, RouteKeys.productDetailsScreen,
+                                            arguments: (snapshot.data!.docs[index]
+                                                .get("product_id")));
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: AppColors.blackColor,
+                                            borderRadius: BorderRadius.circular(16),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  blurRadius: 6, spreadRadius: 1)
+                                            ]),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: GridTile(
+                                          header: GridTileBar(
+                                              subtitle: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: CircleAvatar(
+                                                backgroundColor:
+                                                    Colors.grey.withOpacity(.5),
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     controller.deleteItem(
                                                         productId: snapshot
-                                                            .data!
-                                                            .docs[index]
-                                                            .id);
+                                                            .data!.docs[index].id);
                                                   },
-                                                  child: Icon(IconlyBold.delete,
-                                                      size:  30 ,
+                                                  child: const Icon(
+                                                      IconlyBold.delete,
+                                                      size: 27,
                                                       color: Colors.red),
-                                                ))
-                                          ],
+                                                )),
+                                          )),
+                                          footer: GridTileBar(
+                                            backgroundColor: Theme.of(context).primaryColor,
+                                             
+                                            title: TextWidget(
+                                              text: camilCaseMethod(snapshot
+                                                  .data!.docs[index]
+                                                  .get("product_name")),
+                                              maxlines: 1,
+                                              textSize: 18,
+                                            ),
+                                            subtitle: TextWidget(
+                                                text:
+                                                    "${snapshot.data!.docs[index].get("price")} LE",
+                                                textSize: 17),
+                                          ),
+                                          child: FancyShimmerImage(
+                                              imageUrl: snapshot.data!.docs[index]
+                                                  .get("product_image")),
                                         ),
                                       ),
-                                      footer: GridTileBar(
-                                        backgroundColor: const Color.fromARGB(
-                                            81, 20, 28, 100),
-                                        title: TextWidget(
-                                          text: camilCaseMethod(snapshot
-                                              .data!.docs[index]
-                                              .get("product_name")),
-                                          color: Colors.white,
-                                          maxlines: 1,
-                                          textSize: getHeight(24),
-                                        ),
-                                        subtitle: TextWidget(
-                                            text:
-                                                "${snapshot.data!.docs[index].get("price")} LE",
-                                            color: Colors.white,
-                                            textSize: getFont(17)),
-                                      ),
-                                      child: FancyShimmerImage(
-                                          imageUrl: snapshot.data!.docs[index]
-                                              .get("product_image")),
-                                    ),
-                                  ),
-                                );
-                              });
-                        }
-                      } else if (snapshot.hasError) {
-                        return Text(
-                          "Something went wrong, Try again later",
-                          style: TextStyle(
-                              fontSize: getFont(25),
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700),
-                        );
-                      }
-                      return const LoadingItem();
-                    },
-                  );
-          })),
+                                    );
+                                  });
+                            }
+                          } else if (snapshot.hasError) {
+                            return Text(
+                              "Something went wrong, Try again later",
+                              style: TextStyle(
+                                  fontSize: getFont(25),
+                                  fontWeight: FontWeight.w700),
+                            );
+                          }
+                          return const LoadingItem();
+                        },
+                      );
+              }),
+            ],
+          )),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import '../../../core/constants/route_key.dart';
 import '../../../core/notification/notification_services.dart';
@@ -27,8 +28,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginRepositoryImpl) : super(LoginInitial());
   getNotification() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
+      FirebaseMessaging.instance.subscribeToTopic("users");
+     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -108,6 +109,18 @@ class LoginCubit extends Cubit<LoginState> {
             builder: (context) => const BottomNavigationScreen(),
           ),
           (route) => false);
+    });
+  }
+
+  bool isLoggedIn = false;
+  Map userObj = {};
+  signInWithFacebook(context) async {
+   await FacebookAuth.i
+        .login(permissions: ["public_profile", "email"]).then((value) {
+      FacebookAuth.instance.getUserData().then((userData) {
+        isLoggedIn = true;
+        userObj = userData;
+      });
     });
   }
 }

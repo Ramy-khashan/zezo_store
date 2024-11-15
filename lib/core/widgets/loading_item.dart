@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
+import 'package:flutter/material.dart'; 
 
 class LoadingItem extends StatelessWidget {
   const LoadingItem({super.key});
@@ -11,7 +10,7 @@ class LoadingItem extends StatelessWidget {
     return Center(
       child: Platform.isAndroid
           ? CircularProgressIndicator(
-              color: AppColors.primaryColor,
+              color: Theme.of(context).primaryColor,
               backgroundColor: Colors.grey.withOpacity(.6),
             )
           : Platform.isIOS

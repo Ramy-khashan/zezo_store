@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../utils/size_config.dart';
 
-class AuthButton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   final void Function() onPressed;
   final String? buttonText;
   final Color?textColor;
   final Color color;
   final Widget? child;
-  const AuthButton(
+  const AppButton(
       {super.key,
       required this.onPressed,
         this.buttonText,
@@ -21,6 +21,7 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          textStyle: const TextStyle(color: Colors.white),
           backgroundColor: color,
           padding: EdgeInsets.symmetric(vertical: getHeight(15))
         ),

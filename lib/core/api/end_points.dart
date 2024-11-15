@@ -19,6 +19,9 @@ class EndPoints {
   static const String authToken = '${baseUrlPayment}auth/tokens';
   static const String paymentOrder = '${baseUrlPayment}ecommerce/orders';
   static const String paymentToken = '${baseUrlPayment}acceptance/payment_keys';
+  static const int integrationID =2081134;
+  static const int iFrameID =384537;
+     
   static const String apiToken =
       'ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2libUZ0WlNJNklqRTJOemd6TVRBNU56a3VPRGsxT1RRMklpd2ljSEp2Wm1sc1pWOXdheUk2TVRjMU5qUXlmUS4yZF8xYTRnYl8ycU9nQThMZm9vNjJBQ1JIQ2JJdlNTRjl2YzdmLUFYOUtvVk90eXhPSmlWdkJITnEzWDFfWVV2XzFSOFNQTUtkdUxTS1hoVkdTX0tPUQ==';
 }

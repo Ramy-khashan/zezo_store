@@ -1,14 +1,11 @@
-import 'dart:convert';
-
+import 'dart:convert'; 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../../core/utils/functions/app_toast.dart';
 import '../../../../core/utils/functions/camil_case.dart';
-import '../../../../core/widgets/text_widget.dart';
- 
-import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/text_widget.dart'; 
 import '../../../../core/utils/size_config.dart';
 
 class OrderItem extends StatelessWidget {
@@ -20,8 +17,7 @@ class OrderItem extends StatelessWidget {
 
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-        child: Card(
-          color: AppColors.blackColor,
+        child: Card( 
           child: Padding(
             padding: EdgeInsets.all(getWidth(10)),
             child: Column(
@@ -31,18 +27,16 @@ class OrderItem extends StatelessWidget {
                   children: [
                     TextWidget(
                         text: "Order Id${orderData.id}",
-                        color: Colors.white,
-                        isBold: true,
+                         isBold: true,
                         textSize: getFont(21)),
                     const Spacer(),
                     IconButton(
                         onPressed: () {
                           appToast("Coming soon!");
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           IconlyLight.infoSquare,
-                          size: 28,
-                          color: Colors.white,
+                          size: 28, 
                         ))
                   ],
                 ),
@@ -66,21 +60,18 @@ class OrderItem extends StatelessWidget {
                         orderData.get("products")[index]["title"],
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: size.shortestSide * .05,
-                            color: AppColors.whiteColor,
+                            fontSize: size.shortestSide * .05, 
                             fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
                         "Quantity : ${ orderData.get("products")[index]["quantity"]}",
                         style: TextStyle(
-                            fontSize: size.shortestSide * .043,
-                            color: AppColors.whiteColor,
+                            fontSize: size.shortestSide * .043, 
                             fontWeight: FontWeight.w500),
                       ),
                       trailing: Text(
                         "${ orderData.get("products")[index]["price"]} LE.",
-                        style: TextStyle(
-                            color: AppColors.whiteColor,
+                        style: TextStyle( 
                             fontSize: size.shortestSide * .045,
                             fontWeight: FontWeight.w500),
                       ),
@@ -98,8 +89,7 @@ class OrderItem extends StatelessWidget {
                 Text.rich(TextSpan(children: [
                   TextSpan(
                       text: "Payment : ",
-                      style: TextStyle(
-                          color: AppColors.whiteColor,
+                      style: TextStyle( 
                           fontSize: getFont(21),
                           fontWeight: FontWeight.bold)),
                   TextSpan(
@@ -121,11 +111,10 @@ class OrderItem extends StatelessWidget {
                 TextWidget(
                   text:
                       "Payment Type : ${camilCaseMethod( orderData.get("payment"))}",
-                  color: Colors.white,
-                  textSize: getFont(21),
+                   textSize: getFont(21),
                   isBold: true,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 StreamBuilder(
@@ -143,7 +132,7 @@ class OrderItem extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         );
                       }
-                      return SizedBox();
+                      return const SizedBox();
                     })
               ],
             ),

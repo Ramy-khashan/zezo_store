@@ -21,89 +21,106 @@ class CartScreen extends StatelessWidget {
         create: (context) => CartCubit()..getUserDetails(),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 0,
+            scrolledUnderElevation: 0,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
             centerTitle: true,
             leading: const SizedBox.shrink(),
             title: TextWidget(
               text: 'Cart',
-              color: AppColors.whiteColor,
               textSize: getFont(30),
               isBold: true,
             ),
           ),
-          body: BlocBuilder<CartCubit, CartState>(
-            builder: (context, state) {
-              final controller = CartCubit.get(context);
+          body: Stack(
+            children: [
+              Center(
+                child: Image.asset(
+                  "assets/images/zezo_white.png",
+                  color: Theme.of(context).brightness.index == 0
+                      ? Colors.white.withOpacity(.2)
+                      : AppColors.blackColor.withOpacity(.1),
+                  height: 600,
+                  width: 500,
+                  fit: BoxFit.cover,
+                 ),
+              ),
+              BlocBuilder<CartCubit, CartState>(
+                builder: (context, state) {
+                  final controller = CartCubit.get(context);
 
-              return controller.isLoadingAddCart
-                  ? const LoadingItem()
-                  : controller.cartProducts.isEmpty
-                      ? const Center(
-                          child: EmptyScreen(
-                            imagePath: 'assets/images/cart.png',
-                            headText: 'Your cart is empty',
-                            text: 'Add something and make me happy :)',
-                            textButton: 'Browse Products',
-                          ),
-                        )
-                      : Column(
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: getHeight(65),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(
-                                  children: [
-                                    TextButtonItem(
-                                      text: 'Order now',
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 8),
-                                      backgroundColor: Colors.green,
-                                      textColor: AppColors.whiteColor,
-                                      textSize: getFont(20),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  OrderProcessScreen(
-                                                      totalPrice:
-                                                          controller.totalPrice,
-                                                      cartProduct: controller
-                                                          .cartProducts),
-                                            ));
-                                      },
+                  return controller.isLoadingAddCart
+                      ? const LoadingItem()
+                      : controller.cartProducts.isEmpty
+                          ? const Center(
+                              child: EmptyScreen(
+                                imagePath: 'assets/images/cart.png',
+                                headText: 'Your cart is empty',
+                                text: 'Add something and make me happy :)',
+                                textButton: 'Browse Products',
+                              ),
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(vertical:10,horizontal: 5),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                          width: 1.5,
+                                          color: Theme.of(context).primaryColor,)),
+                                  padding:
+                                      const EdgeInsets. all( 5),
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      TextButtonItem(
+                                        text: 'Order now',
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 8),
+                                        backgroundColor: Colors.green,
+                                        textColor: AppColors.whiteColor,
+                                        textSize: getFont(20),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    OrderProcessScreen(
+                                                        totalPrice:
+                                                            controller.totalPrice,
+                                                        cartProduct: controller
+                                                            .cartProducts),
+                                              ));
+                                        },
+                                      ),
+                                      const Spacer(),
+                                      TextWidget(
+                                        text:
+                                            'Total: ${controller.totalPrice.toStringAsFixed(2)} LE',
+                                        textSize: getFont(22),
+                                        isBold: true,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListView.separated(
+                                    padding: EdgeInsets.all(getWidth(8)),
+                                    separatorBuilder: (context, index) => SizedBox(
+                                      height: getHeight(15),
                                     ),
-                                    const Spacer(),
-                                    TextWidget(
-                                      text:
-                                          'Total: ${controller.totalPrice.toStringAsFixed(2)} LE',
-                                      color: AppColors.whiteColor,
-                                      textSize: getFont(22),
-                                      isBold: true,
-                                    )
-                                  ],
+                                    itemBuilder: (context, index) => CartItem(
+                                        cartProduct: controller.cartProducts[index],
+                                        index: index),
+                                    itemCount: controller.cartProducts.length,
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.separated(
-                                padding: EdgeInsets.all(getWidth(8)),
-                                separatorBuilder: (context, index) => SizedBox(
-                                  height: getHeight(15),
-                                ),
-                                itemBuilder: (context, index) => CartItem(
-                                    cartProduct: controller.cartProducts[index],
-                                    index: index),
-                                itemCount: controller.cartProducts.length,
-                              ),
-                            ),
-                          ],
-                        );
-            },
+                              ],
+                            );
+                },
+              ),
+            ],
           ),
         ));
   }

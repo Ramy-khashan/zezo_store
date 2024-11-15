@@ -6,7 +6,7 @@ import '../../../core/constants/route_key.dart';
 import '../../../core/constants/storage_keys.dart';
 import '../../../core/utils/size_config.dart';
 import '../../../shop_app.dart';
-import '../../login/view/widgets/rain_animation.dart';
+// import '../../login/view/widgets/rain_animation.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,23 +32,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
         body: Center(
             child: Stack(
       children: [
-        for (int i = 0; i < 40; i++)
-          RainAnimation(height: size.height, width: size.width),
+        // for (int i = 0; i < 40; i++)
+        //   RainAnimation(height: size.height, width: size.width),
         Center(
-          child: Container(
-            width: getWidth(280),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: Image.asset(
-              "assets/images/zezo.jpg",
-              fit: BoxFit.contain,
-            ),
+          child: Image.asset(
+            Theme.of(context).brightness.index == 0
+                ? "assets/images/zezo_white.png"
+                : "assets/images/zezo.png",
+            fit: BoxFit.contain,
           ),
         ),
       ],

@@ -1,7 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
-
-import '../../../../core/constants/app_colors.dart';
+import 'package:flutter/material.dart'; 
  import '../../../../core/utils/size_config.dart';
 import '../../../../core/widgets/text_widget.dart';
 import '../../../category_products/view/category_product_scren.dart';
@@ -45,10 +43,10 @@ class CatItem extends StatelessWidget {
           child: GridTile(
           
               footer: GridTileBar(
-               backgroundColor: passedColor.withOpacity(.4),
+               backgroundColor: passedColor.withOpacity(.6),
                 leading: TextWidget(
-                  text:  title,
-                  color: AppColors.whiteColor,
+                  text:  title, 
+                  color: Colors.white,
                   textSize: getFont(22),
                   isBold: true,
                 ),

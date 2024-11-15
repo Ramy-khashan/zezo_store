@@ -24,12 +24,12 @@ class ProductViewItem extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
             context, RouteKeys.productDetailsScreen,
             arguments: (product.id)),
-        child: Container(
+        child:  Material(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(
+ elevation: 10,
             color: AppColors.blackColor,
             borderRadius: BorderRadius.circular(15),
-          ),
+          
           child: GridTile(
               header: GridTileBar(
                 title: Row(
@@ -38,7 +38,7 @@ class ProductViewItem extends StatelessWidget {
                         backgroundColor: AppColors.blackColor.withOpacity(.7),
                         child: GestureDetector(
                             onTap: onTapCart,
-                            child: Icon(
+                            child: const Icon(
                               IconlyLight.buy,
                               size:  28 ,
                               color: Colors.orange,
@@ -48,7 +48,7 @@ class ProductViewItem extends StatelessWidget {
                         backgroundColor: AppColors.blackColor.withOpacity(.7),
                         child: GestureDetector(
                             onTap: onTapFavorite,
-                            child: Icon(
+                            child: const Icon(
                               IconlyLight.heart,
                               size: 28,
                               color: Colors.orange,
@@ -56,19 +56,55 @@ class ProductViewItem extends StatelessWidget {
                   ],
                 ),
               ),
-              footer: GridTileBar(
-                backgroundColor: AppColors.primaryColor,
-                title: TextWidget(
-                  text: product.get("title") ,
-                  color: Colors.white,
-                  isBold: true,
-                  textSize:  20 ,
-                  maxlines: 1,
-                ),
-                subtitle: PriceWidget(
-                    salePrice:product.get("on_sale_price"),
-                    price:product.get("price"),
-                    isOnSale: product.get("is_on_sale")),
+              footer: Stack(
+                children: [
+                  GridTileBar(
+                    backgroundColor:Theme.of(context).primaryColor,
+                    title: TextWidget(
+                      text: product.get("title") ,
+                      color: Colors.white,
+                      isBold: true,
+                      textSize:  20 ,
+                      maxlines: 1,
+                    ),
+                    subtitle: PriceWidget(
+                        salePrice:product.get("on_sale_price"),
+                        price:product.get("price"),
+                        isOnSale: product.get("is_on_sale")),
+                  ),
+            product.get("is_on_sale")
+                      ? Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                            width: 50,
+                            height: 25,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 5,
+                                      spreadRadius: 1,
+                                      color: Colors.black54,
+                                      offset: Offset(2, 2))
+                                ],
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15))),
+                            child: Center(
+                              child: Text(
+                                "${(100 - (double.parse(product.get("on_sale_price").toString()) / double.parse(product.get("price").toString())) * 100).floor()}%",
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ),
+                      )
+                      : const SizedBox(),
+                ],
               ),
               child: FancyShimmerImage(
                   imageUrl: product.get("main_image"))),

@@ -51,7 +51,7 @@ class SwipeableButtonView extends StatelessWidget {
                         width: 56,
                         height: 56,
                         decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.white),
+                            shape: BoxShape.circle),
                         child: Center(
                           child: buttonWidget,
                         ),
@@ -66,7 +66,7 @@ class SwipeableButtonView extends StatelessWidget {
                     width: 56,
                     height: 56,
                     decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.white),
+                        shape: BoxShape.circle ),
                     child: Center(
                         child: isWaiting
                             ? CircularProgressIndicator(

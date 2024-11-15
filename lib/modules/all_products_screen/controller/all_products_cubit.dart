@@ -36,6 +36,7 @@ class AllProductsCubit extends Cubit<AllProductsState> {
         nextPageToken = res["nextPageToken"];
         product = allProduct;
         serarchCount = product.length;
+      // ignore: empty_catches
       } catch (e) {}
       isLoadingMore = false;
       emit(SuccessLoadMoreState());

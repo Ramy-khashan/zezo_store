@@ -16,8 +16,7 @@ class OrderProcessCubit extends Cubit<OrderProcessState> {
     emit(OrderProcessInitial());
 
     radioValue = value;
-
-    emit(ChangValueState());
+     emit(ChangValueState());
   }
 
   bool isLoadingelivery = false;
@@ -29,7 +28,8 @@ class OrderProcessCubit extends Cubit<OrderProcessState> {
         .collection("configration")
         .doc("deliveryFees")
         .get()
-        .then((value) => delivery = double.parse(value.get("delivery_fees").toString()));
+        .then((value) =>
+            delivery = double.parse(value.get("delivery_fees").toString()));
     isLoadingelivery = false;
     emit(GetDeliveryFeesState());
   }
@@ -47,17 +47,12 @@ class OrderProcessCubit extends Cubit<OrderProcessState> {
         MaterialPageRoute(
           builder: (context) => OrderPaymentDataScreen(
             map: {
-              "products": {
-                "arrayValue": {"values": products}
-              },
-              "totalPrice": {"stringValue": totalPrice.toString()},
-              "state": const {"stringValue": "waiting"},
-              "address": {"stringValue": addressController.text},
-              "created_at": {
-                "stringValue": DateFormat.yMEd().format(DateTime.now()) +
-                    DateFormat.jms().format(DateTime.now())
-              },
-              "payment": {"stringValue": radioValue},
+              "products": products,
+              "totalPrice": totalPrice.toString(),
+              "state": "waiting",
+              "created_at": DateFormat.yMEd().format(DateTime.now()) +
+                  DateFormat.jms().format(DateTime.now()),
+              "payment": radioValue,
             },
           ),
         ));

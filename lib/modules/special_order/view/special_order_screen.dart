@@ -1,9 +1,8 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/widgets/loading_item.dart';
-
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/loading_item.dart';
 import '../../../core/utils/functions/validate.dart';
 import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/auth_button.dart';
@@ -27,7 +26,6 @@ class SpecialOrderScreen extends StatelessWidget {
           leading: const SizedBox.shrink(),
           title: TextWidget(
             text: 'Special Order',
-            color: AppColors.whiteColor,
             textSize: getFont(30),
             isBold: true,
           ),
@@ -35,7 +33,6 @@ class SpecialOrderScreen extends StatelessWidget {
             IconButton(
               onPressed: () {
                 AwesomeDialog(
-                  dialogBackgroundColor: Colors.grey.shade200,
                   context: context,
                   dialogType: DialogType.info,
                   body: Padding(
@@ -51,97 +48,111 @@ class SpecialOrderScreen extends StatelessWidget {
               },
               icon: const Icon(
                 Icons.help,
-                color: Colors.white,
               ),
             ),
           ],
         ),
-        body: BlocBuilder<SpecialOrderCubit, SpecialOrderState>(
-          builder: (context, state) {
-            final controller = SpecialOrderCubit.get(context);
-            return controller.isLoadingData
-                ? const LoadingItem()
-                : Form(
-                    key: controller.key,
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(children: [
-                        TextFieldItem(
-                          verticalPadding: getHeight(10),
-                          raduis: 10,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.text,
-                          validator: (val) => Validate.notEmpty(val!),
-                          controller: controller.orderController,
-                          prefexIcon: Icons.backpack_rounded,
-                          hintText: "Order",
+        body: Stack(
+            children: [
+              Center(
+                child: Image.asset(
+                  "assets/images/zezo_white.png",
+                  color: Theme.of(context).brightness.index == 0
+                      ? Colors.white.withOpacity(.2)
+                      : AppColors.blackColor.withOpacity(.1),
+                  height: 600,
+                  width: 500,
+                  fit: BoxFit.cover,
+                 ),
+              ),
+            BlocBuilder<SpecialOrderCubit, SpecialOrderState>(
+              builder: (context, state) {
+                final controller = SpecialOrderCubit.get(context);
+                return controller.isLoadingData
+                    ? const LoadingItem()
+                    : Form(
+                        key: controller.key,
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(children: [
+                            TextFieldItem(
+                              verticalPadding: getHeight(10),
+                              raduis: 10,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              validator: (val) => Validate.notEmpty(val!),
+                              controller: controller.orderController,
+                              prefexIcon: Icons.backpack_rounded,
+                              hintText: "Order",
+                            ),
+                            TextFieldItem(
+                              verticalPadding: getHeight(10),
+                              raduis: 10,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              validator: (val) => Validate.notEmpty(val!),
+                              controller: controller.fullNameController,
+                              prefexIcon: Icons.backpack_rounded,
+                              hintText: "Full Name",
+                            ),
+                            TextFieldItem(
+                              verticalPadding: getHeight(10),
+                              raduis: 10,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.emailAddress,
+                              validator: (val) => Validate.validateEmail(val!),
+                              controller: controller.emailController,
+                              prefexIcon: Icons.email,
+                              hintText: "Email",
+                            ),
+                            TextFieldItem(
+                              verticalPadding: getHeight(10),
+                              raduis: 10,
+                              textInputAction: TextInputAction.next,
+                              validator: (val) =>
+                                  Validate.validateEgyptPhoneNumber(val!),
+                              controller: controller.phoneController,
+                              textInputType: TextInputType.number,
+                              prefexIcon: Icons.phone,
+                              hintText: "Phone",
+                            ),
+                            TextFieldItem(
+                              verticalPadding: getHeight(10),
+                              maxlines: 3,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              validator: (val) => Validate.notEmpty(val!),
+                              raduis: 10,
+                              controller: controller.addressController,
+                              prefexIcon: Icons.home,
+                              hintText: "Address",
+                            ),
+                            TextFieldItem(
+                              verticalPadding: getHeight(10),
+                              raduis: 10,
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              validator: (val) => Validate.notEmpty(val!),
+                              controller: controller.descriptionController,
+                              prefexIcon: Icons.description,
+                              hintText: "Description",
+                              maxlines: 3,
+                            ),
+                            SizedBox(
+                              height: getFont(20),
+                            ),
+                            AppButton(
+                                onPressed: () {
+                                  controller.createOrder();
+                                },
+                                buttonText: 'Order Now!',
+                                color: Colors.grey.shade400.withOpacity(.6)),
+                          ]),
                         ),
-                        TextFieldItem(
-                          verticalPadding: getHeight(10),
-                          raduis: 10,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.text,
-                          validator: (val) => Validate.notEmpty(val!),
-                          controller: controller.fullNameController,
-                          prefexIcon: Icons.backpack_rounded,
-                          hintText: "Full Name",
-                        ),
-                        TextFieldItem(
-                          verticalPadding: getHeight(10),
-                          raduis: 10,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.emailAddress,
-                          validator: (val) => Validate.validateEmail(val!),
-                          controller: controller.emailController,
-                          prefexIcon: Icons.email,
-                          hintText: "Email",
-                        ),
-                        TextFieldItem(
-                          verticalPadding: getHeight(10),
-                          raduis: 10,
-                          textInputAction: TextInputAction.next,
-                          validator: (val) =>
-                              Validate.validateEgyptPhoneNumber(val!),
-                          controller: controller.phoneController,
-                          textInputType: TextInputType.number,
-                          prefexIcon: Icons.phone,
-                          hintText: "Phone",
-                        ),
-                        TextFieldItem(
-                          verticalPadding: getHeight(10),
-                          maxlines: 3,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.text,
-                          validator: (val) => Validate.notEmpty(val!),
-                          raduis: 10,
-                          controller: controller.addressController,
-                          prefexIcon: Icons.home,
-                          hintText: "Address",
-                        ),
-                        TextFieldItem(
-                          verticalPadding: getHeight(10),
-                          raduis: 10,
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.text,
-                          validator: (val) => Validate.notEmpty(val!),
-                          controller: controller.descriptionController,
-                          prefexIcon: Icons.description,
-                          hintText: "Description",
-                          maxlines: 3,
-                        ),
-                        SizedBox(
-                          height: getFont(20),
-                        ),
-                        AuthButton(
-                            onPressed: () {
-                              controller.createOrder();
-                            },
-                            buttonText: 'Order Now!',
-                            color: Colors.grey.shade400.withOpacity(.6)),
-                      ]),
-                    ),
-                  );
-          },
+                      );
+              },
+            ),
+          ],
         ),
       ),
     );

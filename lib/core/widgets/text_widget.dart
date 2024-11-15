@@ -9,7 +9,7 @@ class TextWidget extends StatelessWidget {
   const TextWidget({
     super.key,
     required this.text,
-    required this.color,
+      this.color,
     this.isBold = false,
     required this.textSize,
     this.maxlines = 10,

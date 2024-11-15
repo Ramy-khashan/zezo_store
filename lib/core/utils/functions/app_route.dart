@@ -14,7 +14,6 @@ import '../../../modules/register/view/register.dart';
 import '../../../modules/reports/view/reports_screen.dart';
 import '../../../modules/reset_password/view/reset_password_screen.dart';
 import '../../../modules/special_order_request/view/special_order_requests.dart';
-import '../../../modules/splash_screen/view/splash_screen.dart';
 import '../../../modules/wishlist_screen/view/wishlist_screen.dart';
 import '../../constants/route_key.dart';
 import '../../repository/login/login_repository_impl.dart';
@@ -22,7 +21,7 @@ import '../../repository/register/register_repository_impl.dart';
 import 'locator_service.dart';
 
 class AppRoute {
-  Route? routeGenrator(RouteSettings routeSettings) {
+  Route? routeGenrator(RouteSettings routeSettings, String? userId) {
     switch (routeSettings.name) {
       case RouteKeys.allProductScreen:
         return MaterialPageRoute(
@@ -33,16 +32,18 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (BuildContext context) => BlocProvider<LoginCubit>(
               create: (BuildContext _) =>
-                  LoginCubit(serviceLocator.get<LoginRepositoryImpl>())..getNotification(),
+                  LoginCubit(serviceLocator.get<LoginRepositoryImpl>())
+                    ..getNotification(),
               child: const LoginScreen()),
-        );  case RouteKeys.resetPasswordScreen:
-        return MaterialPageRoute(
-          builder: (BuildContext context) => const ResetPasswordScreen() 
         );
+      case RouteKeys.resetPasswordScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ResetPasswordScreen());
       case RouteKeys.homeScreen:
         return MaterialPageRoute(
           builder: (context) => const BottomNavigationScreen(),
-        );case RouteKeys.reportsScreen:
+        );
+      case RouteKeys.reportsScreen:
         return MaterialPageRoute(
           builder: (context) => const ReportsScreen(),
         );
@@ -50,7 +51,6 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) => const SpecialOrderRequests(),
         );
-    
 
       case RouteKeys.forgetPasswordScreen:
         return MaterialPageRoute(
@@ -96,7 +96,14 @@ class AppRoute {
           },
         );
     }
-    return MaterialPageRoute(
-        builder: (BuildContext context) => const SplashScreen());
+    return MaterialPageRoute(builder: (BuildContext context) {
+      return userId != null
+          ? const BottomNavigationScreen()
+          : BlocProvider<LoginCubit>(
+              create: (BuildContext _) =>
+                  LoginCubit(serviceLocator.get<LoginRepositoryImpl>())
+                    ..getNotification(),
+              child: const LoginScreen());
+    });
   }
 }

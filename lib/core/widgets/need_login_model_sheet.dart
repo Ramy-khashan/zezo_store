@@ -38,7 +38,7 @@ needLogin({required BuildContext context}) => showModalBottomSheet(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AuthButton(
+                  AppButton(
                     onPressed: () {
                       Navigator.pushNamed(context, RouteKeys.loginScreen);
                     },
@@ -48,7 +48,7 @@ needLogin({required BuildContext context}) => showModalBottomSheet(
                   SizedBox(
                     height: getHeight(getHeight(15)),
                   ),
-                  AuthButton(
+                  AppButton(
                     onPressed: () {
                       Navigator.pushNamed(context, RouteKeys.registerScreen);
                     },

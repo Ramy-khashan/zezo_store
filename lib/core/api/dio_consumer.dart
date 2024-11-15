@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:dio/adapter.dart';
-import 'package:dio/dio.dart';
+ import 'package:dio/dio.dart';
 import 'package:dio_http_formatter/dio_http_formatter.dart';
 import 'package:flutter/foundation.dart';
 import 'status_code.dart';
@@ -12,12 +10,12 @@ class DioConsumer implements ApiConsumer {
   final Dio client;
 
   DioConsumer({required this.client}) {
-    (client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (HttpClient client) {
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-      return client;
-    };
+    // (client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (HttpClient client) {
+    //   client.badCertificateCallback =
+    //       (X509Certificate cert, String host, int port) => true;
+    //   return client;
+    // };
     if (kDebugMode) {
       client.interceptors.addAll([
         HttpFormatter(),
@@ -37,7 +35,7 @@ class DioConsumer implements ApiConsumer {
     try {
       final response = await client.get(path, queryParameters: queryParameters);
       return _handleResponseAsJson(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       handleDioError(error);
     }
   }
@@ -52,7 +50,7 @@ class DioConsumer implements ApiConsumer {
           queryParameters: queryParameters,
           data: formDataIsEnabled ? FormData.fromMap(body!) : body);
       return _handleResponseAsJson(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       handleDioError(error);
     }
   }
@@ -67,7 +65,7 @@ class DioConsumer implements ApiConsumer {
           queryParameters: queryParameters,
           data: formDataIsEnabled ? FormData.fromMap(body!) : body);
       return _handleResponseAsJson(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       handleDioError(error);
     }
   }
@@ -81,7 +79,7 @@ class DioConsumer implements ApiConsumer {
       final response =
           await client.delete(path, queryParameters: queryParameters);
       return _handleResponseAsJson(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       handleDioError(error);
     }
   }
@@ -94,7 +92,7 @@ class DioConsumer implements ApiConsumer {
       final response =
           await client.put(path, queryParameters: queryParameters, data: body);
       return _handleResponseAsJson(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       handleDioError(error);
     }
   }
@@ -103,14 +101,13 @@ class DioConsumer implements ApiConsumer {
     final responseJson = jsonDecode(response.data.toString());
     return responseJson;
   }
-
-  dynamic handleDioError(DioError error) {
+ dynamic handleDioError(DioException error) {
     switch (error.type) {
-      case DioErrorType.connectTimeout:
-      case DioErrorType.sendTimeout:
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.connectionError:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
         throw const FetchDataException();
-      case DioErrorType.response:
+      case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case StatusCode.badRequest:
             throw const BadRequestException();
@@ -126,11 +123,12 @@ class DioConsumer implements ApiConsumer {
             throw InternalServerException();
         }
         break;
-      case DioErrorType.cancel:
+      case DioExceptionType.cancel:
         break;
-      case DioErrorType.other:
+      case DioExceptionType.unknown:
         throw NoInternetConnectionException();
+      default:
+        return 'Something went wrong, Try again later!';
     }
   }
- 
 }

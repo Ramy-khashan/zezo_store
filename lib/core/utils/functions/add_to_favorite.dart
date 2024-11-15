@@ -9,7 +9,7 @@ addTofavorite({
   required String productImg,
   required String productTitle,
   required String productPrice,
-}) async {
+}) async { 
   if (userId != null) {
     final res = await FavoriteProcessRepositoryImpl()
         .checkisExist(productId: productId);

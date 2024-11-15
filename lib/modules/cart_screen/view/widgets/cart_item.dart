@@ -1,9 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../controller/cart_cubit.dart';
-
-import '../../../../core/constants/app_colors.dart';
+import '../../controller/cart_cubit.dart'; 
 import '../../../../core/constants/route_key.dart';
 import '../../../../core/utils/functions/camil_case.dart';
 import '../../../../core/widgets/text_widget.dart';
@@ -27,15 +25,11 @@ class CartItem extends StatelessWidget {
                 arguments: (cartProduct.fields!.productId!.stringValue));
           },
           borderRadius: BorderRadius.circular(12),
-          child: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Theme.of(context)
-                        .colorScheme
-                        .background
-                        .withOpacity(.5)),
+          child: 
+             Material(
+              borderRadius: BorderRadius.circular(15),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              elevation: 10,
                 child: Row(
                   children: [
                     Expanded(
@@ -63,21 +57,19 @@ class CartItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextWidget(
-                              text: camilCaseMethod(cartProduct.fields!.productName!.stringValue!),
-                              color: AppColors.whiteColor,
+                              text: camilCaseMethod(cartProduct.fields!.productName!.stringValue!), 
                               textSize: getFont(22),
                               isBold: true,
                             ),
                             TextWidget(
                                 text:
-                                    "${int.parse(cartProduct.fields!.quantity!.integerValue!) * (double.parse(cartProduct.fields!.price!.stringValue!))} LE",
-                                color: AppColors.whiteColor,
+                                    "${int.parse(cartProduct.fields!.quantity!.integerValue!) * (double.parse(cartProduct.fields!.price!.stringValue!))} LE", 
                                 textSize: getFont(25)),
                             SizedBox(
                               child: Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: Colors.grey.shade200,
+                                    backgroundColor: Colors.grey,
                                     child: IconButton(
                                         onPressed: () =>
                                             controller.qunatityMuins(index),
@@ -95,26 +87,14 @@ class CartItem extends StatelessWidget {
                                     ),
                                   ),
                                   CircleAvatar(
-                                    backgroundColor: Colors.grey.shade200,
+                                    backgroundColor: Colors.grey,
                                     child: IconButton(
                                         onPressed: () =>
                                             controller.qunatityPlus(index),
                                         icon: const Icon(Icons.add)),
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 10,
-                top: 5,
-                child: IconButton(
+                                  const Spacer(),
+                                  IconButton(
                   onPressed: () {
                     controller.deleteItem(
                         index: index, id: cartProduct.name!.split("/").last);
@@ -125,9 +105,18 @@ class CartItem extends StatelessWidget {
                     size: getWidth(30),
                   ),
                 ),
-              )
-            ],
-          ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+           
+            
         );
       },
     );

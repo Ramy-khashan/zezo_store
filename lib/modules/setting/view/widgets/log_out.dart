@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-import '../../../../core/constants/app_colors.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'; 
 import '../../../../core/utils/size_config.dart';
 import '../../../splash_screen/view/splash_screen.dart';
 
 Future<void> showLogoutDialog(BuildContext context) async {
   return await showDialog(
     context: context,
-    builder: (context) => AlertDialog(
-      backgroundColor: Colors.white,
+    builder: (context) => AlertDialog(  
       title: Row(
         children: [
           Image.asset(
@@ -37,7 +34,7 @@ Future<void> showLogoutDialog(BuildContext context) async {
           child: Text(
             'Cancel',
             style:
-                TextStyle(color: AppColors.primaryColor, fontSize: getFont(22)),
+                TextStyle(  fontSize: getFont(22)),
           ),
         ),
         TextButton(
