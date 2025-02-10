@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store/core/widgets/loading_item.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/utils/functions/validate.dart';
-import '../../../core/utils/size_config.dart';
+ import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/auth_button.dart';
 import '../../../core/widgets/back_icon.dart';
 import '../../../core/widgets/text_widget.dart';
+import '../../add_edit_address/view/add_edit_address.dart';
+import '../../delivery_address/view/delivery_address_screen.dart';
 import '../controller/order_payment_cubit.dart';
-import 'widget/order_payment_textfield.dart';
-
+import 'widget/delivert_address_shape.dart';
+ 
 class OrderPaymentDataScreen extends StatelessWidget {
   final Map map;
   const OrderPaymentDataScreen({super.key, required this.map});
@@ -18,8 +19,8 @@ class OrderPaymentDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OrderPaymentCubit()
-        ..getIntialVal()
-        ..initializePayment(),
+        ..getIntialVal()..getDeliveryAddress(),
+        // ..initializePayment(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -33,19 +34,19 @@ class OrderPaymentDataScreen extends StatelessWidget {
             isBold: true,
           ),
         ),
-        body:Stack(
-            children: [
-              Center(
-                child: Image.asset(
-                  "assets/images/zezo_white.png",
-                  color: Theme.of(context).brightness.index == 0
-                      ? Colors.white.withOpacity(.2)
-                      : AppColors.blackColor.withOpacity(.1),
-                  height: 600,
-                  width: 500,
-                  fit: BoxFit.cover,
-                 ),
+        body: Stack(
+          children: [
+            Center(
+              child: Image.asset(
+                "assets/images/zezo_white.png",
+                color: Theme.of(context).brightness.index == 0
+                    ? Colors.white.withOpacity(.2)
+                    : AppColors.blackColor.withOpacity(.1),
+                height: 600,
+                width: 500,
+                fit: BoxFit.cover,
               ),
+            ),
             BlocBuilder<OrderPaymentCubit, OrderPaymentState>(
               builder: (context, state) {
                 final controller = OrderPaymentCubit.get(context);
@@ -59,57 +60,102 @@ class OrderPaymentDataScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: Column(children: [
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      OrderPaymentTextfieldItem(
-                                          controller: controller.fullNameController,
-                                          hint: "Full Name",
-                                          validate: (val) => Validate.notEmpty(val),
-                                          textInputType:
-                                              TextInputType.emailAddress),
-                                      OrderPaymentTextfieldItem(
-                                          controller: controller.emailController,
-                                          hint: "E-Mail",
-                                          validate: (val) =>
-                                              Validate.validateEmail(val),
-                                          textInputType:
-                                              TextInputType.emailAddress),
-                                      OrderPaymentTextfieldItem(
-                                          controller: controller.phoneController,
-                                          hint: "Phone",
-                                          validate: (val) =>
-                                              Validate.validateEgyptPhoneNumber(
-                                                  val),
-                                          textInputType: TextInputType.phone),
-                                      OrderPaymentTextfieldItem(
-                                          controller: controller.cityController,
-                                          hint: "City",
-                                          validate: (val) => Validate.notEmpty(val),
-                                          textInputType: TextInputType.text),
-                                      OrderPaymentTextfieldItem(
-                                          controller: controller.streatController,
-                                          hint: "Streat",
-                                          validate: (val) => Validate.notEmpty(val),
-                                          textInputType: TextInputType.text),
-                                      OrderPaymentTextfieldItem(
-                                          validate: (val) => Validate.notEmpty(val),
-                                          controller:
-                                              controller.buildingtController,
-                                          hint: "Building",
-                                          textInputType: TextInputType.text),
-                                      OrderPaymentTextfieldItem(
-                                          validate: (val) => Validate.notEmpty(val),
-                                          lines: 3,
-                                          controller: controller.addressController,
-                                          hint: "Full Address",
-                                          textInputType: TextInputType.text),
-                                    ]),
+                                controller.isLoading
+                          ? LoadingItem()
+                          : controller.deliveryAddress.isEmpty
+                              ? Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text("No delivery addresses exist",
+                                          style: TextStyle(
+                                              // fontFamily: MyStrings.fontFamily,
+                                              fontSize: 27,
+                                              fontWeight: FontWeight.bold)),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 20),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 20)),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AddEditAddressScreen(
+                                                          isAddAddress: true),
+                                                )).then((value) {
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DeliveryAddressScreen()));
+                                            });
+                                          },
+                                          child: Center(
+                                            child: Text(
+                                              "Add Delivery Address",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 18),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
+                                )
+                              : Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Row(
+                                        children: [
+                                          Text("Delivery Address",
+                                              style: TextStyle(
+                                                    fontSize: 27,
+                                                  fontWeight: FontWeight.bold)),
+                                          Spacer(),
+                                          IconButton(
+                                              onPressed: () {
+                                                controller
+                                                    .toggleDeliveryAddress();
+                                              },
+                                              icon: Icon(controller
+                                                      .isToggledDeliveryAddress
+                                                  ? Icons.arrow_drop_up_rounded
+                                                  : Icons
+                                                      .arrow_drop_down_rounded))
+                                        ],
+                                      ),
+                                    ),
+                                    AnimatedContainer(
+                                      duration: Duration(milliseconds: 500),
+                                      height: controller
+                                              .isToggledDeliveryAddress
+                                          ? 0
+                                          : controller.deliveryAddress.length *
+                                              165,
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                              controller.deliveryAddress.length,
+                                          itemBuilder: (context, index) =>
+                                              DeliveryAddressShape(
+                                               
+                                                  index: index)),
+                                    ),
+                                  ],
                                 ),
+                    
+                                
                                 controller.isLoadingCreateOrder
                                     ? const LoadingItem()
                                     : AppButton(

@@ -35,8 +35,8 @@ class OrdersScreen extends StatelessWidget {
             body:
                 BlocBuilder<OrderCubit, OrderState>(builder: (context, state) {
               return RefreshIndicator.adaptive(
-                onRefresh: ()async{
-                await  BlocProvider.of<OrderCubit>(context).getOrders();
+                onRefresh: () async {
+                  await BlocProvider.of<OrderCubit>(context).getOrders();
                 },
                 child: Stack(
                   children: [
@@ -73,7 +73,8 @@ class OrdersScreen extends StatelessWidget {
                           : ListView.separated(
                               itemBuilder: (context, index) =>
                                   OrderItem(orderData: state.orders[index]),
-                              separatorBuilder: (context, index) => const Divider(
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
                                     thickness: 1,
                                   ),
                               itemCount: state.orders.length),

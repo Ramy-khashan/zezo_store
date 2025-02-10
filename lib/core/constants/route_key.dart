@@ -2,6 +2,7 @@ class RouteKeys {
   static const String productDetailsScreen = '/ProductDetailsScreen';
   static const String viewedScreen = '/ViewedScreen';
   static const String wishListScreen = '/WishListScreen';
+  static const String deliveryAddressScreen = '/deliveryAddressScreen';
 
   static const String forgetPasswordScreen = '/ForgetPasswordScreen';
   static const String loginScreen = '/LoginScreen';

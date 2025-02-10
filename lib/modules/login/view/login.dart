@@ -140,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       controller.isLoadingSignInGoogle
                           ? const LoadingItem()
-                          : AppButton(
+                          : Platform.isIOS?SizedBox.shrink():AppButton(
                               onPressed: () {
                                 Platform.isAndroid
                                     ? (controller.isLoadginEmail

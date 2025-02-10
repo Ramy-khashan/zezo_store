@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:store/modules/login/view/login.dart';
+import '../../../../core/constants/route_key.dart';
 import '../../../../core/utils/size_config.dart';
 
 Future<void> showLogoutDialog(BuildContext context) async {
@@ -39,12 +39,8 @@ Future<void> showLogoutDialog(BuildContext context) async {
         TextButton(
           onPressed: () async {
             await const FlutterSecureStorage().deleteAll().then((value) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              );
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RouteKeys.loginScreen, (route) => false);
             });
           },
           child: Text(

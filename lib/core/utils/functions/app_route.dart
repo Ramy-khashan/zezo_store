@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../modules/All_Products_Screen/view/all_products_screen.dart';
 import '../../../modules/bottom_navigation_screen/view/bottom_navigation_screen.dart';
 import '../../../modules/category_products/view/category_product_scren.dart';
+import '../../../modules/delivery_address/view/delivery_address_screen.dart';
 import '../../../modules/forget_password/view/forget_password.dart';
 import '../../../modules/login/controller/login_cubit.dart';
 import '../../../modules/login/view/login.dart';
@@ -84,6 +85,9 @@ class AppRoute {
       case RouteKeys.wishListScreen:
         return MaterialPageRoute(
           builder: (context) => const WishListScreen(),
+        );   case RouteKeys.deliveryAddressScreen:
+        return MaterialPageRoute(
+          builder: (context) => const DeliveryAddressScreen(),
         );
       case RouteKeys.categoryProductScreen:
         String categoryId = routeSettings.arguments as String;

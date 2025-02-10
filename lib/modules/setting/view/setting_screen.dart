@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:store/core/constants/app_colors.dart';
+import 'package:store/core/widgets/image_item.dart';
 import '../../../config/changetheme/changetheme_cubit.dart';
 import '../../../config/changetheme/changetheme_states.dart';
 import '../../../core/constants/route_key.dart';
@@ -42,20 +43,23 @@ class SettingsSCreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.transparent,
-                              backgroundImage: NetworkImage(controller.image!),
-                              radius: (50),
-                            ),
+                         
+                       Container(
+                              margin: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle
+                              ),
+                              width: 120,
+                              height: 120,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              
+                             
+                              child: AppImage.drawImage(controller.image
+                                   ),
                           ),
-                          SizedBox(
-                            height: getHeight(15),
-                          ),
+                     
                           Padding(
-                            padding: EdgeInsets.only(left: getWidth(12)),
+                            padding: EdgeInsets.only(left: getWidth(12),top: 15),
                             child: RichText(
                               text: TextSpan(
                                 text: 'Hi, ',
@@ -76,11 +80,9 @@ class SettingsSCreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: getHeight(5),
-                          ),
+                         
                           Padding(
-                            padding: const EdgeInsets.only(left: 12.0),
+                            padding: const EdgeInsets.only(left: 12.0,top: 5),
                             child: TextWidget(
                               text: controller.email!,
                               textSize: getFont(20),
@@ -88,15 +90,12 @@ class SettingsSCreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: getHeight(20),
-                      ),
+                   
                       const Divider(
+                        height: 40,
                         thickness: 2.0,
                       ),
-                      SizedBox(
-                        height: getHeight(20),
-                      ),
+                    
                       ListTileWidget(
                         icon: IconlyLight.bag,
                         onPressed: () => Navigator.pushNamed(
@@ -117,6 +116,14 @@ class SettingsSCreen extends StatelessWidget {
                               context, RouteKeys.wishListScreen);
                         },
                         title: 'Wishlist',
+                      ),
+                      ListTileWidget(
+                        icon: Icons.map,
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, RouteKeys.deliveryAddressScreen);
+                        },
+                        title: 'Delivery Address',
                       ),
                       ListTileWidget(
                         icon: Icons.report,

@@ -29,5 +29,5 @@ class SettingsCubit extends Cubit<SettingsState> {
   bool? isGoogleSign = false;
   String? name = "";
   String? image =
-      "https://firebasestorage.googleapis.com/v0/b/have-fun-a5c87.appspot.com/o/userImg.png?alt=media&token=4f962df4-7c2d-4dd2-8950-f64e1ed9863d";
+      "https://firebasestorage.googleapis.com/v0/b/zezo-store-32084.appspot.com/o/none.jpg?alt=media&token=10dee4a9-0256-4dad-8e6a-e7593af2e8b1";
 }

@@ -5,6 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/functions/camil_case.dart';
 import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/back_icon.dart';
+import '../../../core/widgets/empty_screen.dart';
 import '../../../core/widgets/get_order_process_shape.dart';
 import '../../../core/widgets/loading_item.dart';
 import '../../../core/widgets/text_widget.dart';
@@ -53,16 +54,12 @@ class SpecialOrderRequests extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return snapshot.data!.docs.isEmpty
-                            ? Center(
-                                child: Text(
-                                  camilCaseMethod("There is no orders for you"),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: getFont(25),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              )
+                            ? const EmptyScreen(
+                              imagePath: 'assets/images/cart.png',
+                              headText: 'You didn\'t place any order yet',
+                              text: '',
+                              textButton: 'Shop Now',
+                            )
                             : ListView.separated(
                                 itemBuilder: (context, index) => Card( 
                                       child: SingleChildScrollView(

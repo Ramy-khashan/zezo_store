@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shop_app.dart';
+
 class TextFieldItem extends StatelessWidget {
   final TextInputAction textInputAction;
   final TextInputType textInputType;
@@ -16,11 +18,11 @@ class TextFieldItem extends StatelessWidget {
   final void Function()? onTap;
   final IconData? suffixIcon;
   final IconData? prefexIcon;
-  const TextFieldItem(
+  TextFieldItem(
       {super.key,
       this.validator,
-      required this.textInputAction,
-      required this.textInputType,
+      this.textInputAction = TextInputAction.next,
+      this.textInputType = TextInputType.emailAddress,
       this.obscureText = false,
       required this.hintText,
       this.onTap,
@@ -48,43 +50,77 @@ class TextFieldItem extends StatelessWidget {
         validator: validator,
         onEditingComplete: onEditingComplete,
         obscureText: obscureText,
-        style: const TextStyle(
-            // color: Colors.white,
-            ),
+        style: TextStyle(
+          color:
+              Theme.of(ShopApp.navigatorKey.currentContext!).brightness.index ==
+                      1
+                  ? Colors.black
+                  : Colors.white,
+        ),
         decoration: InputDecoration(
           isDense: true,
           hintText: hintText,
-          hintStyle: const TextStyle(
-              // color: Colors.white,
-              ),
+          hintStyle: TextStyle(
+            color: Theme.of(ShopApp.navigatorKey.currentContext!)
+                        .brightness
+                        .index ==
+                    1
+                ? Colors.black
+                : Colors.white,
+          ),
           border: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  // color: Colors.white,
-                  ),
+              borderSide: BorderSide(
+                color: Theme.of(ShopApp.navigatorKey.currentContext!)
+                            .brightness
+                            .index ==
+                        1
+                    ? Colors.black
+                    : Colors.white,
+              ),
               borderRadius: BorderRadius.circular(raduis)),
           enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  // color: Colors.white,
-                  ),
+              borderSide: BorderSide(
+                color: Theme.of(ShopApp.navigatorKey.currentContext!)
+                            .brightness
+                            .index ==
+                        1
+                    ? Colors.black
+                    : Colors.white,
+              ),
               borderRadius: BorderRadius.circular(raduis)),
           focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  // color: Colors.white,
-                  ),
+              borderSide: BorderSide(
+                color: Theme.of(ShopApp.navigatorKey.currentContext!)
+                            .brightness
+                            .index ==
+                        1
+                    ? Colors.black
+                    : Colors.white,
+              ),
               borderRadius: BorderRadius.circular(raduis)),
-          suffixIcon: GestureDetector(
+          suffixIcon:suffixIcon==null?null:  GestureDetector(
             onTap: onTap,
-            child: Icon(
+            child:Icon(
               suffixIcon,
-              // color: Colors.white,
+              color: Theme.of(ShopApp.navigatorKey.currentContext!)
+                          .brightness
+                          .index ==
+                      1
+                  ? Colors.black
+                  : Colors.white,
             ),
           ),
-          prefixIcon: GestureDetector(
+          prefixIcon:prefexIcon==null?null:  GestureDetector(
             onTap: onTap,
             child: Icon(
               prefexIcon,
               size: 26,
-              // color: Colors.white,
+              color: Theme.of(ShopApp.navigatorKey.currentContext!)
+                          .brightness
+                          .index ==
+                      1
+                  ? Colors.black
+                  : Colors.white,
             ),
           ),
         ),

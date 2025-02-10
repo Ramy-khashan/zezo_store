@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
 import '../../api/dio_consumer.dart';
 import '../../repository/login/login_repository_impl.dart';
@@ -12,7 +12,7 @@ final serviceLocator = GetIt.instance;
 Future<void> locator() async {
   serviceLocator.registerFactory<DioConsumer>(() => DioConsumer(client: Dio()));
   serviceLocator.registerFactory<LoginRepositoryImpl>(
-      () => LoginRepositoryImpl(dio: serviceLocator.get<DioConsumer>(),auth: FacebookAuth.i)); 
+      () => LoginRepositoryImpl(dio: serviceLocator.get<DioConsumer>(),)); 
       serviceLocator.registerFactory<RegisterRepositoryImpl>(
       () => RegisterRepositoryImpl(dio: serviceLocator.get<DioConsumer>()));
         serviceLocator.registerLazySingleton<OrderDataRepoImpl>(

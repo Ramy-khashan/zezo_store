@@ -3,13 +3,12 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
  import 'package:flutter/foundation.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../modules/login/model/google_signin_model.dart';
-import '../../../modules/login/model/user.dart';
-import '../../api/dio_consumer.dart';
+ import '../../api/dio_consumer.dart';
 import '../../api/end_points.dart';
 import '../../api/exceptions.dart';
 import '../../constants/firestore_keys.dart';
@@ -20,7 +19,7 @@ import 'login_repository.dart';
 class LoginRepositoryImpl extends LoginRepository {
   final DioConsumer dio;
 
-  LoginRepositoryImpl({required this.dio,required this.auth});
+  LoginRepositoryImpl({required this.dio });
 
   @override
   Future<Either<ServerException, String>> signIn(
@@ -159,7 +158,7 @@ class LoginRepositoryImpl extends LoginRepository {
                 },
                 "image": {
                   "stringValue": userData.photoUrl ??
-                      'https://firebasestorage.googleapis.com/v0/b/have-fun-a5c87.appspot.com/o/userImg.png?alt=media&token=4f962df4-7c2d-4dd2-8950-f64e1ed9863d'
+                      'https://firebasestorage.googleapis.com/v0/b/zezo-store-32084.appspot.com/o/none.jpg?alt=media&token=10dee4a9-0256-4dad-8e6a-e7593af2e8b1'
                 }
               }
             });
@@ -174,7 +173,7 @@ class LoginRepositoryImpl extends LoginRepository {
       storage.write(
           key: StorageKeys.userImage,
           value: userData.photoUrl ??
-              'https://firebasestorage.googleapis.com/v0/b/have-fun-a5c87.appspot.com/o/userImg.png?alt=media&token=4f962df4-7c2d-4dd2-8950-f64e1ed9863d');
+              'https://firebasestorage.googleapis.com/v0/b/zezo-store-32084.appspot.com/o/none.jpg?alt=media&token=10dee4a9-0256-4dad-8e6a-e7593af2e8b1');
 
       storage.write(key: StorageKeys.userId, value: userId);
     } else {
@@ -182,33 +181,33 @@ class LoginRepositoryImpl extends LoginRepository {
     }
   }
 
- final FacebookAuth auth;
+//  final FacebookAuth auth;
  
-  @override
-  Future<LoginResult> logIn() {
-    return auth.login();
-  }
+  // @override
+  // Future<LoginResult> logIn() {
+  //   return auth.login();
+  // }
 
-  @override
-  Future<User?> get user async {
-    if (await auth.accessToken != null) {
-      final userData = await auth.getUserData();
+  // @override
+  // Future<User?> get user async {
+  //   if (await auth.accessToken != null) {
+  //     final userData = await auth.getUserData();
 
-      if (userData.isNotEmpty) {
-        final user = User(
-          userId: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          profilePicture: userData['picture']?['data']?['url'],
-        );
-        return user;
-      }
-    }
-    return null;
-  }
+  //     if (userData.isNotEmpty) {
+  //       final user = User(
+  //         userId: userData['id'],
+  //         name: userData['name'],
+  //         email: userData['email'],
+  //         profilePicture: userData['picture']?['data']?['url'],
+  //       );
+  //       return user;
+  //     }
+  //   }
+  //   return null;
+  // }
   
-  @override
-  Future<void> logOut() {
-    return auth.logOut();
-  }
+  // @override
+  // Future<void> logOut() {
+  //   return auth.logOut();
+  // }
 }

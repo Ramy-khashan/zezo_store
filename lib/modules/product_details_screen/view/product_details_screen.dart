@@ -56,6 +56,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             Stack(
                               children: [
                                 Material(
+                                  borderRadius: BorderRadius.circular(15),
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   elevation: 5,
                                   child: SizedBox(
@@ -82,31 +83,32 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                                 controller.product!.fields!.isOnSale!.booleanValue!
-                                    ? Container(
-                                        width: 80,
-                                        height: 35,
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                        decoration: const BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  blurRadius: 5,
-                                                  spreadRadius: 1,
-                                                  color: Colors.black54,
-                                                  offset: Offset(2, 2))
-                                            ],
-                                            color: Colors.red,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                bottomRight: Radius.circular(15))),
-                                        child: Center(
-                                          child: Text(
-                                            "${(100 - (double.parse(controller.product!.fields!.onSalePrice!.stringValue.toString()) / double.parse(controller.product!.fields!.price!.stringValue.toString())) * 100).floor()}%",
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w700),
+                                    ?  Container(
+                                          width: 80,
+                                          height: 35,
+                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                          decoration: const BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    blurRadius: 5,
+                                                    spreadRadius: 1,
+                                                    color: Colors.black54,
+                                                    offset: Offset(2, 2))
+                                              ],
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  bottomRight: Radius.circular(15))),
+                                          child: Center(
+                                            child: Text(
+                                              "${(100 - (double.parse(controller.product!.fields!.onSalePrice!.stringValue.toString()) / double.parse(controller.product!.fields!.price!.stringValue.toString())) * 100).floor()}%",
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
                                           ),
-                                        ),
-                                      )
+                                       
+                                    )
                                     : const SizedBox(),
                               ],
                             ),

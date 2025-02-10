@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import '../../../../core/utils/functions/app_toast.dart';
 import '../../../../core/utils/functions/camil_case.dart';
 import '../../../../core/widgets/text_widget.dart';
 import '../../../../core/utils/size_config.dart';
@@ -23,23 +21,12 @@ class OrderItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    TextWidget(
-                        text: "Order Id : ${orderData.orderId}",
-                        isBold: true,
-                        textSize: getFont(18)),
-                    const Spacer(),
-                    IconButton(
-                        onPressed: () {
-                          appToast("Coming soon!");
-                        },
-                        icon: const Icon(
-                          IconlyLight.infoSquare,
-                          size: 28,
-                        ))
-                  ],
+               
+                SelectableText(
+                  "Order Id : ${orderData.orderId}",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
+               
                 Container(
                   margin:
                       EdgeInsets.symmetric(vertical: size.longestSide * .02),
@@ -99,20 +86,7 @@ class OrderItem extends StatelessWidget {
                                   : Colors.amber,
                           fontSize: getFont(21),
                           fontWeight: FontWeight.bold))
-                  // TextSpan(
-                  //     text: json.decode(
-                  //                 orderData.payment ==
-                  //             "cash"
-                  //         ? "Cash Payment"
-                  //         : json.decode(orderData.get("payment_data"))[
-                  //                     "success"] ==
-                  //                 "true"
-                  //             ? "Success"
-                  //             : "Faild",
-                  //     style: TextStyle(
-                  //         color: Colors.amber,
-                  //         fontSize: getFont(21),
-                  //         fontWeight: FontWeight.bold))
+                 
                 ])),
                 SizedBox(
                   height: getHeight(8),

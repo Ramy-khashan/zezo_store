@@ -8,7 +8,7 @@ import '../../../core/utils/size_config.dart';
 import '../controller/bottom_navigation_bar_cubit.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
-  const BottomNavigationScreen({super.key});
+  const   BottomNavigationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -34,8 +34,7 @@ class OrderProcessScreen extends StatelessWidget {
               isBold: true,
             ),
           ),
-          body: 
-              Stack(
+          body: Stack(
             children: [
               Center(
                 child: Image.asset(
@@ -46,7 +45,7 @@ class OrderProcessScreen extends StatelessWidget {
                   height: 600,
                   width: 500,
                   fit: BoxFit.cover,
-                 ),
+                ),
               ),
               BlocBuilder<OrderProcessCubit, OrderProcessState>(
                 builder: (context, state) {
@@ -100,7 +99,8 @@ class OrderProcessScreen extends StatelessWidget {
                                     ),
                                   ),
                                   itemCount: cartProduct.length,
-                                  separatorBuilder: (context, index) => SizedBox(
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(
                                     height: getHeight(5),
                                   ),
                                 ),
@@ -138,7 +138,6 @@ class OrderProcessScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Material(
-                                  color: Colors.white,
                                   elevation: 5,
                                   borderRadius: BorderRadius.circular(15),
                                   child: Column(
@@ -157,7 +156,8 @@ class OrderProcessScreen extends StatelessWidget {
                                           Text(
                                             "Cash",
                                             style: TextStyle(
-                                                fontSize: size.shortestSide * .05,
+                                                fontSize:
+                                                    size.shortestSide * .05,
                                                 fontWeight: FontWeight.w500),
                                           ),
                                         ],
@@ -165,7 +165,6 @@ class OrderProcessScreen extends StatelessWidget {
                                       Divider(
                                         indent: size.shortestSide * .1,
                                         endIndent: size.shortestSide * .1,
-                                        color: Colors.black,
                                       ),
                                       Row(
                                         children: [
@@ -180,7 +179,8 @@ class OrderProcessScreen extends StatelessWidget {
                                           Text(
                                             "Credit Card",
                                             style: TextStyle(
-                                                fontSize: size.shortestSide * .05,
+                                                fontSize:
+                                                    size.shortestSide * .05,
                                                 fontWeight: FontWeight.w500),
                                           ),
                                         ],
@@ -206,7 +206,8 @@ class OrderProcessScreen extends StatelessWidget {
                                           Text(
                                             "Total Price : $totalPrice LE",
                                             style: TextStyle(
-                                                fontSize: size.shortestSide * .05,
+                                                fontSize:
+                                                    size.shortestSide * .05,
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           SizedBox(
@@ -215,7 +216,8 @@ class OrderProcessScreen extends StatelessWidget {
                                           Text(
                                             "Delivery Price : ${controller.delivery} LE",
                                             style: TextStyle(
-                                                fontSize: size.shortestSide * .05,
+                                                fontSize:
+                                                    size.shortestSide * .05,
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Divider(
@@ -224,7 +226,8 @@ class OrderProcessScreen extends StatelessWidget {
                                           Text(
                                             "Total order price : ${totalPrice + controller.delivery} LE",
                                             style: TextStyle(
-                                                fontSize: size.shortestSide * .05,
+                                                fontSize:
+                                                    size.shortestSide * .05,
                                                 fontWeight: FontWeight.w500),
                                           )
                                         ],
@@ -252,19 +255,22 @@ class OrderProcessScreen extends StatelessWidget {
                                                 products.add({
                                                   "title": element.fields!
                                                       .productName!.stringValue,
-                                                  "price": element
-                                                      .fields!.price!.stringValue,
-                                                  "image": element.fields!
-                                                      .productImage!.stringValue,
+                                                  "price": element.fields!
+                                                      .price!.stringValue,
+                                                  "image": element
+                                                      .fields!
+                                                      .productImage!
+                                                      .stringValue,
                                                   "product_id": element.fields!
                                                       .productId!.stringValue,
                                                   "quantity": element.fields!
                                                       .quantity!.integerValue
                                                 });
                                               }
-                                              if (controller.radioValue == "cash") {
-                                                controller.payment(
-                                                    products, totalPrice, context);
+                                              if (controller.radioValue ==
+                                                  "cash") {
+                                                controller.payment(products,
+                                                    totalPrice, context);
                                               } else {
                                                 Fluttertoast.showToast(
                                                     msg:

@@ -9,6 +9,7 @@ import 'package:paymob_payment/paymob_payment.dart';
 import '../../../core/api/end_points.dart';
 import '../../../core/constants/storage_keys.dart';
 import '../../../core/utils/functions/camil_case.dart';
+import '../../add_edit_address/model/delivery_address_model.dart';
 import '../../bottom_navigation_screen/view/bottom_navigation_screen.dart';
 
 part 'order_payment_state.dart';
@@ -52,12 +53,13 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
     map.addAll({
       "full_name": fullNameController.text,
       "email": emailController.text,
-      "phone_number": "+2${phoneController.text}",
-      "building": buildingtController.text.trim(),
+      "phone_number": "+2${deliveryAddress[selectedDeliveryAddress!].phone1}",
+      "building": deliveryAddress[selectedDeliveryAddress!].building,
       "status": "waiting",
-      "street": streatController.text,
-      "address": addressController.text,
-      "city": cityController.text.trim(),
+      "street": deliveryAddress[selectedDeliveryAddress!].street,
+      "address": deliveryAddress[selectedDeliveryAddress!].fullAddress,
+      "phone_number2": deliveryAddress[selectedDeliveryAddress!].phone2,
+      "city": deliveryAddress[selectedDeliveryAddress!].city,
       "user_id":
           await const FlutterSecureStorage().read(key: StorageKeys.userId)
     });
@@ -141,5 +143,49 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
     });
+  }
+
+  List<DeliveryAddressModel> deliveryAddress = [];
+  double deliveryAddressFees = 0;
+  int? selectedDeliveryAddress;
+  bool isToggledSummary = false;
+  bool isToggledDeliveryAddress = false;
+  bool isLoading = false;
+  getDeliveryAddress() async {
+    isLoading = true;
+    emit(LoadingGetDeliveryAddressState());
+    String? userDocID =
+        await FlutterSecureStorage().read(key: StorageKeys.userId);
+
+    await FirebaseFirestore.instance
+        .collection("delivery_address")
+        .doc(userDocID)
+        .collection("user_delivery_address")
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        deliveryAddress.add(DeliveryAddressModel.fromJson(element.data()));
+      });
+      isLoading = false;
+
+      emit(GetDeliveryAddressState());
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+      isLoading = false;
+      emit(FailedGetDeliveryAddressState());
+    });
+  }
+
+  onSelectDeliveryAddress(int? val) {
+    emit(OrderPaymentInitial());
+
+    selectedDeliveryAddress = val;
+    emit(SelectedDeliveryAddressState());
+  }
+
+  toggleDeliveryAddress() {
+    emit(OrderPaymentInitial());
+    isToggledDeliveryAddress = !isToggledDeliveryAddress;
+    emit(ToggleDeliveryAddressState());
   }
 }

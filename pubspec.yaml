@@ -37,10 +37,10 @@ dependencies:
   firebase_auth:  
   firebase_messaging:  
   cloud_firestore:  
-  flutter_facebook_auth: ^6.0.2
-  permission_handler:
+  # flutter_facebook_auth: ^6.0.2
+  # permission_handler:
   equatable:  
-  flutter_widget_from_html:
+  # flutter_widget_from_html:
   flutter_local_notifications:
   fancy_shimmer_image: 
   flutter:
@@ -58,6 +58,7 @@ dependencies:
   uuid:  
   paymob_payment: ^0.0.1
   flutter_native_splash: 
+  flutter_svg: ^2.0.10+1
 flutter_native_splash:
  color: "#FFFFFF"
  color_dark: "#1c1b20"

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
- import '../../../core/constants/route_key.dart';
- import '../../../core/utils/size_config.dart';
+import '../../../core/constants/route_key.dart';
+import '../../../core/utils/size_config.dart';
 import '../../../shop_app.dart';
 // import '../../login/view/widgets/rain_animation.dart';
 
@@ -17,11 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(const Duration(milliseconds: 3000), () async {
-     
-      Navigator.pushNamedAndRemoveUntil(
-          ShopApp.navigatorKey.currentContext!,
-            RouteKeys.homeScreen  ,
-          (route) => false);
+      Navigator.pushNamedAndRemoveUntil(ShopApp.navigatorKey.currentContext!,
+          RouteKeys.homeScreen, (route) => false);
     });
     super.initState();
   }
