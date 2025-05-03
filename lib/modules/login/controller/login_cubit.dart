@@ -18,7 +18,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   NotificationService().showNotification(
       3, message.notification!.title!, message.notification!.body!);
 
-  debugPrint('Handling a background message ${message.messageId}');
+  // debugPrint('Handling a background message ${message.messageId}');
 }
 
 class LoginCubit extends Cubit<LoginState> {
@@ -28,7 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
   getNotification() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     // await FirebaseMessaging.instance.subscribeToTopic("users");
-  await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -37,7 +37,7 @@ class LoginCubit extends Cubit<LoginState> {
       provisional: false,
       sound: true,
     );
-
+    // print(messaging.getToken());
     try {
       await FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
         await NotificationService().initNotification();
@@ -46,7 +46,7 @@ class LoginCubit extends Cubit<LoginState> {
             4, message.notification!.title!, message.notification!.body!);
       });
     } catch (e) {
-      debugPrint(e.toString());
+      // debugPrint(e.toString());
     }
   }
 
@@ -122,7 +122,7 @@ class LoginCubit extends Cubit<LoginState> {
   //     });
   //   });
   // }
-  signInWithApple(){
+  signInWithApple() {
     appToast("Comming Soon!");
   }
 }

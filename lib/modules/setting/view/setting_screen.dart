@@ -17,164 +17,159 @@ class SettingsSCreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return SafeArea(
-      child: BlocProvider(
-          create: (context) => SettingsCubit()..getUserData(),
-          child: Scaffold(body: BlocBuilder<SettingsCubit, SettingsState>(
-              builder: (context, state) {
-            final controller = SettingsCubit.get(context);
-            return Stack(
+    return SafeArea(child: Scaffold(body:
+        BlocBuilder<SettingsCubit, SettingsState>(builder: (context, state) {
+      final controller = SettingsCubit.get(context);
+      return Stack(
+        children: [
+          Center(
+            child: Image.asset(
+              "assets/images/zezo_white.png",
+              color: Theme.of(context).brightness.index == 0
+                  ? Colors.white.withOpacity(.2)
+                  : AppColors.blackColor.withOpacity(.1),
+              height: 600,
+              width: 500,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: Image.asset(
-                    "assets/images/zezo_white.png",
-                    color: Theme.of(context).brightness.index == 0
-                        ? Colors.white.withOpacity(.2)
-                        : AppColors.blackColor.withOpacity(.1),
-                    height: 600,
-                    width: 500,
-                    fit: BoxFit.cover,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      width: 120,
+                      height: 120,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: AppImage.drawImage(controller.image),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: getWidth(12), top: 15),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Hi, ',
+                          style: TextStyle(
+                            color: Colors.cyan,
+                            fontSize: getFont(30),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: controller.name,
+                              style: TextStyle(
+                                fontSize: getFont(30),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12.0, top: 5),
+                      child: TextWidget(
+                        text: controller.email!,
+                        textSize: getFont(20),
+                      ),
+                    ),
+                  ],
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                         
-                       Container(
-                              margin: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle
-                              ),
-                              width: 120,
-                              height: 120,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              
-                             
-                              child: AppImage.drawImage(controller.image
-                                   ),
-                          ),
-                     
-                          Padding(
-                            padding: EdgeInsets.only(left: getWidth(12),top: 15),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'Hi, ',
-                                style: TextStyle(
-                                  color: Colors.cyan,
-                                  fontSize: getFont(30),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: controller.name,
-                                    style: TextStyle(
-                                      fontSize: getFont(30),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                         
-                          Padding(
-                            padding: const EdgeInsets.only(left: 12.0,top: 5),
-                            child: TextWidget(
-                              text: controller.email!,
-                              textSize: getFont(20),
-                            ),
-                          ),
-                        ],
-                      ),
-                   
-                      const Divider(
-                        height: 40,
-                        thickness: 2.0,
-                      ),
-                    
-                      ListTileWidget(
-                        icon: IconlyLight.bag,
-                        onPressed: () => Navigator.pushNamed(
-                            context, RouteKeys.ordersScreen),
-                        title: 'Orders',
-                      ),
-                      ListTileWidget(
-                        icon: IconlyLight.ticketStar,
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteKeys.specailOrder);
-                        },
-                        title: 'Special Orders',
-                      ),
-                      ListTileWidget(
-                        icon: IconlyLight.heart,
+                const Divider(
+                  height: 40,
+                  thickness: 2.0,
+                ),
+                ListTileWidget(
+                  icon: IconlyLight.bag,
+                  onPressed: () =>
+                      Navigator.pushNamed(context, RouteKeys.ordersScreen),
+                  title: 'Orders',
+                ),
+                ListTileWidget(
+                  icon: IconlyLight.ticketStar,
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteKeys.specailOrder);
+                  },
+                  title: 'Special Orders',
+                ),
+                ListTileWidget(
+                  icon: IconlyLight.heart,
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteKeys.wishListScreen);
+                  },
+                  title: 'Wishlist',
+                ),
+                ListTileWidget(
+                  icon: Icons.map,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, RouteKeys.deliveryAddressScreen);
+                  },
+                  title: 'Delivery Address',
+                ),
+                ListTileWidget(
+                  icon: Icons.report,
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteKeys.reportsScreen);
+                  },
+                  title: 'Report',
+                ),
+                controller.isGoogleSign!
+                    ? const SizedBox()
+                    : ListTileWidget(
+                        icon: IconlyLight.unlock,
                         onPressed: () {
                           Navigator.pushNamed(
-                              context, RouteKeys.wishListScreen);
+                              context, RouteKeys.resetPasswordScreen);
                         },
-                        title: 'Wishlist',
+                        title: 'Reset password',
                       ),
-                      ListTileWidget(
-                        icon: Icons.map,
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, RouteKeys.deliveryAddressScreen);
-                        },
-                        title: 'Delivery Address',
-                      ),
-                      ListTileWidget(
-                        icon: Icons.report,
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteKeys.reportsScreen);
-                        },
-                        title: 'Report',
-                      ),
-                      controller.isGoogleSign!
-                          ? const SizedBox()
-                          : ListTileWidget(
-                              icon: IconlyLight.unlock,
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, RouteKeys.resetPasswordScreen);
-                              },
-                              title: 'Reset password',
-                            ),
-                      BlocBuilder<ChangeTheme, ChangeThemeState>(
-                        builder: (context, state) {
-                          final controller = ChangeTheme.get(context);
-                          return ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            leading: const Icon(Icons.dark_mode_outlined),
-                            title: const Text(
-                              "Dark Mode",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            trailing: Switch(
-                              onChanged: (val) {
-                                controller.changeTheme();
-                              },
-                              value: controller.isDark,
-                            ),
-                          );
-                        },
-                      ),
-                      ListTileWidget(
-                        icon: IconlyLight.logout,
+                controller.hideDeleteAccount
+                    ? SizedBox.shrink()
+                    : ListTileWidget(
+                        icon: IconlyLight.unlock,
+                        isLoading: controller.isLoadingDelete,
                         onPressed: () async {
-                          await showLogoutDialog(context);
+                          await controller.deleteAccount(context);
                         },
-                        title: 'Logout',
+                        title: 'Delete Account',
                       ),
-                    ],
-                  ),
+                BlocBuilder<ChangeTheme, ChangeThemeState>(
+                  builder: (context, state) {
+                    final controller = ChangeTheme.get(context);
+                    return ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      leading: const Icon(Icons.dark_mode_outlined),
+                      title: Text(
+                        "Dark Mode",
+                        style: TextStyle(fontSize: getFont(20)),
+                      ),
+                      trailing: Switch(
+                        onChanged: (val) {
+                          controller.changeTheme();
+                        },
+                        value: controller.isDark,
+                      ),
+                    );
+                  },
+                ),
+                ListTileWidget(
+                  icon: IconlyLight.logout,
+                  onPressed: () async {
+                    await showLogoutDialog(context);
+                  },
+                  title: 'Logout',
                 ),
               ],
-            );
-          }))),
-    );
+            ),
+          ),
+        ],
+      );
+    })));
   }
 }

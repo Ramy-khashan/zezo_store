@@ -20,8 +20,6 @@ void main() async {
     ],
   );
 
-  // print(await FirebaseMessaging.instance.getToken());
-
   ShopApp.navigatorKey = GlobalKey<NavigatorState>();
 
   runApp(

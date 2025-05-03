@@ -11,7 +11,7 @@ class TextWidget extends StatelessWidget {
     required this.text,
       this.color,
     this.isBold = false,
-    required this.textSize,
+      this.textSize,
     this.maxlines = 10,
   });
 

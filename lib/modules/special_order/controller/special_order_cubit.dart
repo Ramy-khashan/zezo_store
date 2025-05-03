@@ -64,7 +64,8 @@ class SpecialOrderCubit extends Cubit<SpecialOrderState> {
           return focusScopeNode.unfocus();
         }
           emit(SuccessSpecialOrderState());
-          // appToast("Order Created Successfully");
+          appToast("Order Created Successfully");
+
           NotificationService().showNotification(
         Random().nextInt(10000), "Zezo Store", "Your special order has been created successfully");
         });

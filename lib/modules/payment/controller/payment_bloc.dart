@@ -42,7 +42,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     });
     Map<String, dynamic> finalMap = {'fields': map};
 
-    debugPrint(finalMap.toString());
+    // debugPrint(finalMap.toString());
     if (paymentResultMap["success"] == "true") {
       await serviceLocator
           .get<DioConsumer>()

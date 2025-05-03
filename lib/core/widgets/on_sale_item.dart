@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:store/core/widgets/image.dart';
 import '../../modules/home_screen/view/widgets/price_widget.dart';
 import '../constants/route_key.dart';
 import '../utils/size_config.dart';
@@ -22,7 +22,7 @@ class OnSaleItem extends StatelessWidget {
           arguments: (product.id)),
       child: Material(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 10, 
+        elevation: 10,
         borderRadius: BorderRadius.circular(15),
         child: Stack(
           children: [
@@ -37,11 +37,11 @@ class OnSaleItem extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
-                        height: getHeight(70),
-                        width: 100,
-                        child: FancyShimmerImage(
+                        height: getHeight(110),
+                        width: 165,
+                        child: ImageHandler(
+                          product.get("main_image"),
                           boxFit: BoxFit.fill,
-                          imageUrl: product.get("main_image"),
                         ),
                       ),
                       SizedBox(

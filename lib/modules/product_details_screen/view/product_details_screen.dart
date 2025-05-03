@@ -1,6 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:store/core/widgets/auth_button.dart';
@@ -10,6 +9,7 @@ import '../../../core/utils/functions/add_to_favorite.dart';
 import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/back_icon.dart';
 import '../../../core/widgets/icon_button_item.dart';
+import '../../../core/widgets/image.dart';
 import '../../../core/widgets/loading_item.dart';
 import '../../../core/widgets/text_widget.dart';
 import '../../home_screen/view/widgets/price_widget.dart';
@@ -64,13 +64,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                     child: Swiper(
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        return FancyShimmerImage(
-                                            imageUrl: controller
+                                        return ImageHandler(
+                                            controller
                                                 .product!
                                                 .fields!
                                                 .productImage!
                                                 .arrayValue!
-                                                .values![index]);
+                                                .values![index],boxFit: BoxFit.fill,);
                                       },
                                       autoplay: true,
                                       itemCount: controller.product!.fields!
@@ -129,7 +129,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                           overflow: TextOverflow.clip,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: getFont(28)),
+                                              fontSize: getFont(24)),
                                         ),
                                       ),
                                       IconButtonItem(
@@ -159,7 +159,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                         TextWidget(
                                             text: "Price : ",
                                             isBold: true,
-                                            textSize: getFont(26)),
+                                            textSize: getFont(23)),
                                         PriceWidget(
                                             salePrice: controller.product!.fields!
                                                 .onSalePrice!.stringValue!,
@@ -173,7 +173,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   TextWidget(
                                       text: "Description",
                                       isBold: true,
-                                      textSize: getFont(26)),
+                                      textSize: getFont(23)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -185,7 +185,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                           textDirection: TextDirection.rtl,
                                           overflow: TextOverflow.clip,
                                           style: TextStyle(
-                                            fontSize: getFont(23),
+                                            fontSize: getFont(20),
                                           ),
                                         ),
                                       ),
@@ -201,7 +201,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                           TextWidget(
                                               text: "Quantity : ",
                                               isBold: true,
-                                              textSize: getFont(26)),
+                                              textSize: getFont(23)),
                                           const Spacer(),
                                           CircleAvatar(
                                             child: IconButton(

@@ -1,4 +1,3 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../modules/category_products/model/product_model.dart';
@@ -7,6 +6,7 @@ import '../constants/app_colors.dart';
 import '../constants/route_key.dart';
 import '../utils/functions/camil_case.dart';
 import '../utils/size_config.dart';
+import 'image.dart';
 import 'text_widget.dart';
 
 class ProductItem extends StatelessWidget {
@@ -109,8 +109,8 @@ class ProductItem extends StatelessWidget {
                       : const SizedBox(),
                 ],
               ),
-              child: FancyShimmerImage(
-                  imageUrl: product.fields!.mainImage!.stringValue!)),
+              child: ImageHandler(
+          product.fields!.mainImage!.stringValue!,boxFit: BoxFit.fill,)),
         ));
   }
 }

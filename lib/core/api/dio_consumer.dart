@@ -1,6 +1,6 @@
 import 'dart:convert';
  import 'package:dio/dio.dart';
-import 'package:dio_http_formatter/dio_http_formatter.dart';
+// import 'package:dio_http_formatter/dio_http_formatter.dart';
 import 'package:flutter/foundation.dart';
 import 'status_code.dart';
 import 'api_consumer.dart'; 
@@ -18,7 +18,7 @@ class DioConsumer implements ApiConsumer {
     // };
     if (kDebugMode) {
       client.interceptors.addAll([
-        HttpFormatter(),
+        // HttpFormatter(),
       ]);
     }
     client.options

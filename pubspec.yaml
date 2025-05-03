@@ -31,18 +31,18 @@ dependencies:
   awesome_dialog: 
   card_swiper:  
   dartz:  
-  dio: 5.2.1+1
+  dio: 
   dio_http_formatter: 
   firebase_core:  
   firebase_auth:  
-  firebase_messaging:  
+  firebase_messaging: ^15.0.3
   cloud_firestore:  
   # flutter_facebook_auth: ^6.0.2
   # permission_handler:
   equatable:  
   # flutter_widget_from_html:
   flutter_local_notifications:
-  fancy_shimmer_image: 
+  # fancy_shimmer_image: 
   flutter:
     sdk: flutter
   flutter_bloc: 
@@ -56,9 +56,9 @@ dependencies:
   shared_preferences:  
   swipeable_button_view:  
   uuid:  
-  paymob_payment: ^0.0.1
+  paymob_payment:  
   flutter_native_splash: 
-  flutter_svg: ^2.0.10+1
+  flutter_svg:  
 flutter_native_splash:
  color: "#FFFFFF"
  color_dark: "#1c1b20"
@@ -73,6 +73,8 @@ flutter_native_splash:
   image_dark: assets/images/zezo_dark.png 
   icon_background_color: "#FFFFFF"
   icon_background_color_dark: "#1c1b20"
+
+ 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
   flutter_test:

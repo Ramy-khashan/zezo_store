@@ -1,8 +1,8 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/image.dart';
 import '../../../core/widgets/loading_item.dart';
 import '../../../core/widgets/auth_button.dart';
 import '../../cart_screen/model/cart_model.dart';
@@ -66,8 +66,8 @@ class OrderProcessScreen extends StatelessWidget {
                                   itemBuilder: (context, index) => ListTile(
                                     leading: ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
-                                      child: FancyShimmerImage(
-                                        imageUrl: cartProduct[index]
+                                      child: ImageHandler(
+                                      cartProduct[index]
                                             .fields!
                                             .productImage!
                                             .stringValue!,

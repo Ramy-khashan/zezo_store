@@ -141,7 +141,7 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
             .delete();
       });
     }).onError((error, stackTrace) {
-      debugPrint(error.toString());
+      // debugPrint(error.toString());
     });
   }
 
@@ -170,7 +170,7 @@ class OrderPaymentCubit extends Cubit<OrderPaymentState> {
 
       emit(GetDeliveryAddressState());
     }).onError((error, stackTrace) {
-      debugPrint(error.toString());
+      // debugPrint(error.toString());
       isLoading = false;
       emit(FailedGetDeliveryAddressState());
     });

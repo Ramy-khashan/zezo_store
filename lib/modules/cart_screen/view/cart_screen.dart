@@ -22,8 +22,8 @@ class CartScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             scrolledUnderElevation: 0,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
             centerTitle: true,
             leading: const SizedBox.shrink(),
             title: TextWidget(
@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
                   height: 600,
                   width: 500,
                   fit: BoxFit.cover,
-                 ),
+                ),
               ),
               BlocBuilder<CartCubit, CartState>(
                 builder: (context, state) {
@@ -63,14 +63,15 @@ class CartScreen extends StatelessWidget {
                           : Column(
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.symmetric(vertical:10,horizontal: 5),
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 5),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       border: Border.all(
-                                          width: 1.5,
-                                          color: Theme.of(context).primaryColor,)),
-                                  padding:
-                                      const EdgeInsets. all( 5),
+                                        width: 1.5,
+                                        color: Theme.of(context).primaryColor,
+                                      )),
+                                  padding: const EdgeInsets.all(5),
                                   width: double.infinity,
                                   child: Row(
                                     children: [
@@ -80,15 +81,15 @@ class CartScreen extends StatelessWidget {
                                             horizontal: 15, vertical: 8),
                                         backgroundColor: Colors.green,
                                         textColor: AppColors.whiteColor,
-                                        textSize: getFont(20),
+                                        textSize: getFont(18),
                                         onPressed: () {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     OrderProcessScreen(
-                                                        totalPrice:
-                                                            controller.totalPrice,
+                                                        totalPrice: controller
+                                                            .totalPrice,
                                                         cartProduct: controller
                                                             .cartProducts),
                                               ));
@@ -98,7 +99,7 @@ class CartScreen extends StatelessWidget {
                                       TextWidget(
                                         text:
                                             'Total: ${controller.totalPrice.toStringAsFixed(2)} LE',
-                                        textSize: getFont(22),
+                                        textSize: getFont(18),
                                         isBold: true,
                                       )
                                     ],
@@ -107,11 +108,13 @@ class CartScreen extends StatelessWidget {
                                 Expanded(
                                   child: ListView.separated(
                                     padding: EdgeInsets.all(getWidth(8)),
-                                    separatorBuilder: (context, index) => SizedBox(
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
                                       height: getHeight(15),
                                     ),
                                     itemBuilder: (context, index) => CartItem(
-                                        cartProduct: controller.cartProducts[index],
+                                        cartProduct:
+                                            controller.cartProducts[index],
                                         index: index),
                                     itemCount: controller.cartProducts.length,
                                   ),

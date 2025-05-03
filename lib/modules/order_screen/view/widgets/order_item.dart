@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import '../../../../core/utils/functions/camil_case.dart';
+import '../../../../core/widgets/image.dart';
 import '../../../../core/widgets/text_widget.dart';
 import '../../../../core/utils/size_config.dart';
 import '../../models/order_model.dart';
@@ -21,12 +21,11 @@ class OrderItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               
                 SelectableText(
                   "Order Id : ${orderData.orderId}",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
-               
+
                 Container(
                   margin:
                       EdgeInsets.symmetric(vertical: size.longestSide * .02),
@@ -36,8 +35,8 @@ class OrderItem extends StatelessWidget {
                     itemBuilder: (context, index) => ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: FancyShimmerImage(
-                          imageUrl: orderData.products![index].image!,
+                        child: ImageHandler(
+                        orderData.products![index].image!,
                           height: size.longestSide * .1,
                           width: size.shortestSide * .17,
                         ),
@@ -71,23 +70,31 @@ class OrderItem extends StatelessWidget {
                 SizedBox(
                   height: getHeight(8),
                 ),
-                Text.rich(TextSpan(children: [
-                  TextSpan(
-                      text: "Payment : ",
-                      style: TextStyle(
-                          fontSize: getFont(21), fontWeight: FontWeight.bold)),
-                  TextSpan(
-                      text: camilCaseMethod(orderData.paymentStatus.toString()),
-                      style: TextStyle(
-                          color: orderData.paymentStatus == 'success'
-                              ? Colors.green
-                              : orderData.paymentStatus == "failed"
-                                  ? Colors.red
-                                  : Colors.amber,
-                          fontSize: getFont(21),
-                          fontWeight: FontWeight.bold))
-                 
-                ])),
+                // Text.rich(TextSpan(children: [
+                //   TextSpan(
+                //       text: "Payment : ",
+                //       style: TextStyle(
+                //           fontSize: getFont(21), fontWeight: FontWeight.bold)),
+                //   TextSpan(
+                //       text: camilCaseMethod(orderData.paymentStatus.toString()),
+                //       style: TextStyle(
+                //           color: orderData.paymentStatus == 'success'
+                //               ? Colors.green
+                //               : orderData.paymentStatus == "failed"
+                //                   ? Colors.red
+                //                   : Colors.amber,
+                //           fontSize: getFont(21),
+                //           fontWeight: FontWeight.bold))
+
+                // ])),
+                Text(orderData.state.toString()),
+                Text(orderData.status.toString() == "waiting"
+                    ? "Order prepare to shipped"
+                    : orderData.status.toString() == "shipped"
+                        ? "Order Shipped"
+                        : orderData.status.toString() == "rejected"
+                            ? "Order Rejected"
+                            : "Pending Order"),
                 SizedBox(
                   height: getHeight(8),
                 ),

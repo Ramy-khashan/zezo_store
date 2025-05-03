@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/route_key.dart';
+import '../../../../core/widgets/image.dart';
 import '../../../../core/widgets/text_widget.dart';
 import 'price_widget.dart'; 
 class ProductViewItem extends StatelessWidget {
@@ -106,8 +106,8 @@ class ProductViewItem extends StatelessWidget {
                       : const SizedBox(),
                 ],
               ),
-              child: FancyShimmerImage(
-                  imageUrl: product.get("main_image"))),
+              child: ImageHandler(
+              product.get("main_image"),boxFit: BoxFit.fill,)),
         ));
   }
 }

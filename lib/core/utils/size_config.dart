@@ -18,17 +18,17 @@ class SizeConfig {
 }
 
 double getFont(double size) {
-  double defaultSize = SizeConfig.defaultSize * size;
-  return (defaultSize / 10);
+  // double defaultSize = SizeConfig.defaultSize * size;
+  return size;
 }
 
 double getHeight(double inputHeight) {
-  double screenHeight = SizeConfig.screenHeight;
-  return (inputHeight / 812.0) * screenHeight;
+  // double screenHeight = SizeConfig.screenHeight;
+  return inputHeight;
 }
 
 double getWidth(double inputWidth) {
-  double screenWidth = SizeConfig.screenWidth;
+  // double screenWidth = SizeConfig.screenWidth;
   // 375 is the layout width that Figma provides
-  return (inputWidth / 375.0) * screenWidth;
+  return inputWidth;
 }

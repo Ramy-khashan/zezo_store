@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -10,6 +9,7 @@ import '../../../core/utils/functions/camil_case.dart';
 import '../../../core/utils/size_config.dart';
 import '../../../core/widgets/back_icon.dart';
 import '../../../core/widgets/empty_screen.dart';
+import '../../../core/widgets/image.dart';
 import '../../../core/widgets/loading_item.dart';
 import '../../../core/widgets/text_widget.dart';
 import '../controller/wishlist_cubit.dart';
@@ -45,7 +45,7 @@ class WishListScreen extends StatelessWidget {
                   height: 600,
                   width: 500,
                   fit: BoxFit.cover,
-                 ),
+                ),
               ),
               BlocBuilder<WishlistCubit, WishlistState>(
                   builder: (context, state) {
@@ -80,20 +80,24 @@ class WishListScreen extends StatelessWidget {
                                   itemBuilder: (BuildContext ctx, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.pushNamed(
-                                            context, RouteKeys.productDetailsScreen,
-                                            arguments: (snapshot.data!.docs[index]
+                                        Navigator.pushNamed(context,
+                                            RouteKeys.productDetailsScreen,
+                                            arguments: (snapshot
+                                                .data!.docs[index]
                                                 .get("product_id")));
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: AppColors.blackColor,
-                                            borderRadius: BorderRadius.circular(16),
+                                            borderRadius:
+                                                BorderRadius.circular(16),
                                             boxShadow: const [
                                               BoxShadow(
-                                                  blurRadius: 6, spreadRadius: 1)
+                                                  blurRadius: 6,
+                                                  spreadRadius: 1)
                                             ]),
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
                                         child: GridTile(
                                           header: GridTileBar(
                                               subtitle: Align(
@@ -105,7 +109,9 @@ class WishListScreen extends StatelessWidget {
                                                   onTap: () {
                                                     controller.deleteItem(
                                                         productId: snapshot
-                                                            .data!.docs[index].id);
+                                                            .data!
+                                                            .docs[index]
+                                                            .id);
                                                   },
                                                   child: const Icon(
                                                       IconlyBold.delete,
@@ -114,8 +120,8 @@ class WishListScreen extends StatelessWidget {
                                                 )),
                                           )),
                                           footer: GridTileBar(
-                                            backgroundColor: Theme.of(context).primaryColor,
-                                             
+                                            backgroundColor:
+                                                Theme.of(context).primaryColor,
                                             title: TextWidget(
                                               text: camilCaseMethod(snapshot
                                                   .data!.docs[index]
@@ -128,9 +134,11 @@ class WishListScreen extends StatelessWidget {
                                                     "${snapshot.data!.docs[index].get("price")} LE",
                                                 textSize: 17),
                                           ),
-                                          child: FancyShimmerImage(
-                                              imageUrl: snapshot.data!.docs[index]
-                                                  .get("product_image")),
+                                          child: ImageHandler(
+                                            snapshot.data!.docs[index]
+                                                .get("product_image"),
+                                            boxFit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
                                     );

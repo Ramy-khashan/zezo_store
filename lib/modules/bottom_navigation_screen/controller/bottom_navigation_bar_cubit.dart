@@ -10,6 +10,7 @@ import '../../../core/widgets/not_sign_in.dart';
 import '../../Category_Screen/view/category_screen.dart';
 import '../../Home_Screen/view/home_screen.dart';
 import '../../cart_screen/view/cart_screen.dart';
+import '../../setting/controller/settings_cubit.dart';
 import '../../setting/view/setting_screen.dart';
 import '../../special_order/view/special_order_screen.dart';
 
@@ -28,7 +29,13 @@ class BottomNavigationBarCubit extends Cubit<BottomNavigationBarState> {
       const CategoryScreen(),
       userId == null ? const NotSignPage() : const SpecialOrderScreen(),
       userId == null ? const NotSignPage() : const CartScreen(),
-      userId == null ? const NotSignPage() : const SettingsSCreen(),
+      userId == null
+          ? const NotSignPage()
+          : BlocProvider(
+              create: (context) => SettingsCubit()
+                ..getUserData()
+                ..getShowHideDeleteAccount(),
+              child: const SettingsSCreen()),
     ];
     emit(GetUserDataState());
   }

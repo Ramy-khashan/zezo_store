@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../core/api/dio_consumer.dart';
 import '../../../core/constants/storage_keys.dart';
-import '../../../core/utils/functions/app_toast.dart';
 import '../../../core/utils/functions/locator_service.dart';
 import '../../category_products/model/product_model.dart';
 
@@ -68,21 +67,26 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
                   ? product!.fields!.onSalePrice!.stringValue!
                   : product!.fields!.price!.stringValue!,
               productTitle: product!.fields!.title!.stringValue!,
-              quantaty:quantaty ,
+              quantaty: quantaty,
               userId: userId);
 
       isLoadingAddCart = false;
-      await Future.delayed(const Duration(milliseconds: 2000), () {
-        isFade = true;
-      });
+      // await Future.delayed(const Duration(milliseconds: 2000), () {
+      //   isFade = true;
+      // });
 
       isFade = false;
       isAccepted = false;
       emit(SuccessAddCartState());
     } catch (error) {
-      appToast(error.toString());
+      // appToast(error.toString());
       isLoadingAddCart = false;
       emit(FailedAddcartState());
     }
+  }
+
+  @override
+  Future<void> close() {
+    return super.close();
   }
 }

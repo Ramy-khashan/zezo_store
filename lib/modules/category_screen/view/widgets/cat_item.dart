@@ -1,7 +1,7 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart'; 
- import '../../../../core/utils/size_config.dart';
-import '../../../../core/widgets/text_widget.dart';
+import 'package:flutter/material.dart';
+import '../../../../core/utils/size_config.dart';
+import '../../../../core/widgets/image.dart';
+// import '../../../../core/widgets/text_widget.dart';
 import '../../../category_products/view/category_product_scren.dart';
 
 class CatItem extends StatelessWidget {
@@ -33,31 +33,42 @@ class CatItem extends StatelessWidget {
       child: Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
-            color: passedColor.withOpacity(.1),borderRadius: BorderRadius.circular(15)
-          , boxShadow: [BoxShadow(
-            color: passedColor.withOpacity(.2)
-           ,
-           blurRadius: 3, spreadRadius: 1.5,
-          )]
-          ),
+              color: passedColor.withOpacity(.1),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: passedColor.withOpacity(.2),
+                  blurRadius: 3,
+                  spreadRadius: 1.5,
+                )
+              ]),
           child: GridTile(
-          
-              footer: GridTileBar(
-               backgroundColor: passedColor.withOpacity(.6),
-                leading: TextWidget(
-                  text:  title, 
-                  color: Colors.white,
-                  textSize: getFont(22),
-                  isBold: true,
+              footer: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: passedColor.withOpacity(.6),
+                ),
+                child: Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              child: FancyShimmerImage(
-                shimmerBackColor: Colors.grey,
-                shimmerHighlightColor: Colors.white,
-                boxDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+              //  GridTileBar(
+              //   backgroundColor: passedColor.withOpacity(.6),
+              //   leading: Text(
+              //     title,
+              //     overflow: TextOverflow.ellipsis,
+              //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              //   ),
+              // ),
+              child: SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: ImageHandler(
+                  image,
+                  boxFit: BoxFit.fill,
                 ),
-                imageUrl: image,
               ))),
     );
   }

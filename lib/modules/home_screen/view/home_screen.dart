@@ -1,13 +1,13 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/firestore_keys.dart';
 import '../../../core/utils/functions/camil_case.dart';
 import '../../../core/utils/functions/app_toast.dart';
+import '../../../core/widgets/image.dart';
 import '../../../core/widgets/loading_item.dart';
 import '../../../config/app_controller/appcontrorller_cubit.dart'; 
 import '../../../core/constants/route_key.dart';
@@ -75,10 +75,10 @@ class HomeScreen extends StatelessWidget {
                                         child: Swiper(
                                           itemBuilder:
                                               (BuildContext context, int index) {
-                                            return FancyShimmerImage(
-                                              imageUrl: snapshot.data!.docs[index]
+                                            return ImageHandler(
+                                          snapshot.data!.docs[index]
                                                   .get("ads_image")!,
-                                              boxFit: BoxFit.fill,
+                                              // boxFit: BoxFit.fill,
                                             );
                                           },
                                           autoplay: snapshot.data!.docs.length == 1
@@ -138,7 +138,7 @@ class HomeScreen extends StatelessWidget {
                                   if (snapshot.hasData) {
                                     return Flexible(
                                       child: SizedBox(
-                                        height: getHeight(200),
+                                        height: getHeight(250),
                                         child: snapshot.data!.docs.isEmpty
                                             ? Center(
                                                 child: Padding(
